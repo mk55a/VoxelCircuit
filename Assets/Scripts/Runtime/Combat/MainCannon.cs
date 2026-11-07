@@ -1,4 +1,5 @@
 using CylinderShooter.Core;
+using CylinderShooter.Ship;
 using UnityEngine;
 
 namespace CylinderShooter.Combat
@@ -8,6 +9,7 @@ namespace CylinderShooter.Combat
         [SerializeField] WeaponTuning tuning;
         [SerializeField] MonoBehaviour aimSource;
         [SerializeField] MonoBehaviour fireInput;
+        [SerializeField] PlayerLife _life;
 
         readonly FireRateLimiter _limiter = new FireRateLimiter();
         IAimSource _aim;
@@ -33,6 +35,7 @@ namespace CylinderShooter.Combat
 
         public bool TryFire()
         {
+            if (_life != null && !_life.CanControl) return false;
             if (!_limiter.TryFire(Time.time, tuning.ShotsPerSecond)) return false;
 
             float dir = _aim.FacingSign;

@@ -1,0 +1,12 @@
+{
+    "name": "Game.PlayModeTests",
+    "rootNamespace": "CylinderShooter.Tests",
+    "references": [
+        "Game.Core",
+        "Game.Runtime"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "autoReferenced": false
+}

@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace CylinderShooter.Editor
 {
-    /// <summary>Adds Stage 2 to the Stage 1 scene: prefabs, bullet pool, installer, cannon and target dummies.</summary>
     public static class Stage2SceneBuilder
     {
         const string PrefabFolder = "Assets/Prefabs";
@@ -44,6 +43,7 @@ namespace CylinderShooter.Editor
             Set(cannon, "tuning", weapon);
             Set(cannon, "aimSource", ship);
             Set(cannon, "fireInput", ship.GetComponent<InputSystemShipInput>());
+            PlayerLifeSceneBuilder.Configure(ship);
 
             var targets = new GameObject("Targets");
             float[] angles = { -25f, -50f, -75f, -100f, -125f, -150f };

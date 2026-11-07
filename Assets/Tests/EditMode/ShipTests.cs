@@ -19,6 +19,7 @@ namespace CylinderShooter.Tests
             public float BoostThrustMultiplier => 2f;
             public float BoostDuration => 0.5f;
             public float BoostCooldown => 2f;
+            public float BoostRecoveryDeceleration => 30f;
         }
 
         const float Dt = 1f / 60f;
@@ -50,6 +51,28 @@ namespace CylinderShooter.Tests
             Assert.Greater(motor.Velocity.x, 25f);
         }
 
+        [TestCase(1f, 1f)]
+        [TestCase(-1f, -1f)]
+        [TestCase(1f, 0f)]
+        [TestCase(-1f, 0f)]
+        [TestCase(1f, -1f)]
+        [TestCase(-1f, 1f)]
+        public void BoostEnd_RetainsMomentumAndReturnsToNormalSpeed(float direction, float input)
+        {
+            var motor = new ShipMotor(new Tuning());
+            for (int i = 0; i < 600; i++) motor.Step(Vector2.right * direction, true, Dt);
+            float boostedSpeed = Mathf.Abs(motor.Velocity.x);
+
+            motor.Step(Vector2.right * input, false, Dt);
+            float firstSpeed = Mathf.Abs(motor.Velocity.x);
+            Assert.Greater(firstSpeed, 25f, "Boost speed should not snap to the normal limit.");
+            Assert.Less(firstSpeed, boostedSpeed);
+            Assert.Less(boostedSpeed - firstSpeed, 5f);
+
+            for (int i = 0; i < 120; i++) motor.Step(Vector2.right * input, false, Dt);
+            Assert.LessOrEqual(Mathf.Abs(motor.Velocity.x), 25f + 1e-3f);
+        }
+
         [Test]
         public void Facing_FlipsInTurnTime()
         {
@@ -69,6 +92,20 @@ namespace CylinderShooter.Tests
             Assert.IsFalse(boost.IsReady);
             for (int i = 0; i < 125; i++) boost.Tick(Dt);
             Assert.IsTrue(boost.IsReady);
+        }
+
+        [Test]
+        public void Boost_InterruptStartsFullCooldownAndPreservesExistingCooldown()
+        {
+            var boost = new BoostAbility(new Tuning());
+            Assert.IsTrue(boost.TryActivate());
+            boost.Tick(0.1f);
+            boost.Interrupt();
+            Assert.IsFalse(boost.IsActive);
+            Assert.AreEqual(2f, boost.CooldownRemaining, 0.0001f);
+            boost.Tick(0.5f);
+            boost.Interrupt();
+            Assert.AreEqual(1.5f, boost.CooldownRemaining, 0.0001f);
         }
     }
 }

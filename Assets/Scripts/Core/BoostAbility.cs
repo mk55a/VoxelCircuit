@@ -25,6 +25,14 @@ namespace CylinderShooter.Core
             return true;
         }
 
+        public void Interrupt()
+        {
+            if (!IsActive) return;
+            _activeLeft = 0f;
+            _cooldownLeft = _tuning.BoostCooldown;
+            ActiveChanged?.Invoke(false);
+        }
+
         public void Tick(float dt)
         {
             if (IsActive)

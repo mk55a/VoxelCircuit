@@ -23,7 +23,6 @@ namespace CylinderShooter.Core
             if (input.x * Velocity.x < 0f) ax *= _tuning.ReverseThrustMultiplier;
             float ay = input.y * _tuning.VerticalThrust;
 
-            // While boosting with no input, keep pushing the way the ship is already moving.
             if (boosting && Mathf.Approximately(input.x, 0f))
                 ax = Mathf.Sign(Velocity.x) * _tuning.Thrust * thrustMul;
 
@@ -31,11 +30,18 @@ namespace CylinderShooter.Core
             v *= Mathf.Exp(-_tuning.Drag * dt);
 
             float maxX = _tuning.MaxSpeed * speedMul;
-            v.x = Mathf.Clamp(v.x, -maxX, maxX);
+            // Preserve boost momentum while gradually restoring the normal speed limit.
+            float recoveryLimit = Mathf.Max(maxX,
+                Mathf.Abs(Velocity.x) - _tuning.BoostRecoveryDeceleration * dt);
+            float minX = Velocity.x < -maxX ? -recoveryLimit : -maxX;
+            float upperX = Velocity.x > maxX ? recoveryLimit : maxX;
+            v.x = Mathf.Clamp(v.x, minX, upperX);
             v.y = Mathf.Clamp(v.y, -_tuning.MaxVerticalSpeed, _tuning.MaxVerticalSpeed);
             Velocity = v;
         }
 
         public void StopVertical() => Velocity = new Vector2(Velocity.x, 0f);
+
+        public void Stop() => Velocity = Vector2.zero;
     }
 }

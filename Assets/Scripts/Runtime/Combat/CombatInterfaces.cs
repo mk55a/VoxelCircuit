@@ -2,7 +2,6 @@ using CylinderShooter.Core;
 
 namespace CylinderShooter.Combat
 {
-    /// <summary>Where and which way a weapon fires from.</summary>
     public interface IAimSource
     {
         CylinderPosition Position { get; }

@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace CylinderShooter.Combat
 {
-    /// <summary>Static target placed by angle/height. Flashes on hit, dies, then respawns.</summary>
     public sealed class TargetDummy : MonoBehaviour, IDamageable
     {
         static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");

@@ -5,16 +5,13 @@ using UnityEngine;
 
 namespace CylinderShooter.Ship
 {
-    /// <summary>
-    /// Composition root for the ship: reads input, steps the pure motor at fixed rate,
-    /// converts surface motion to cylinder coordinates, and places the transform (interpolated).
-    /// </summary>
     public sealed class ShipController : MonoBehaviour, ICameraTarget, IAimSource
     {
         [SerializeField] CylinderConfig cylinder;
         [SerializeField] ShipTuning tuning;
         [SerializeField] MonoBehaviour inputSource;
         [SerializeField] float startAngleDegrees;
+        [SerializeField] PlayerLife _life;
 
         ShipMotor _motor;
         ShipFacing _facing;
@@ -58,6 +55,11 @@ namespace CylinderShooter.Ship
         void FixedUpdate()
         {
             float dt = Time.fixedDeltaTime;
+            if (_life != null && !_life.CanControl)
+            {
+                _input.ConsumeBoost();
+                return;
+            }
             var move = _input.Move;
 
             if (_input.ConsumeBoost()) _boost.TryActivate();
@@ -73,6 +75,20 @@ namespace CylinderShooter.Ship
             float clamped = Mathf.Clamp(next.Height, cylinder.minHeight, cylinder.maxHeight);
             if (!Mathf.Approximately(clamped, next.Height)) _motor.StopVertical();
             _current = next.WithHeight(clamped);
+        }
+
+        public void StopAtCurrentPosition()
+        {
+            _current = _previous = Interpolated;
+            _motor.Stop();
+            _boost.Interrupt();
+            _input.ConsumeBoost();
+        }
+
+        public void ResetAfterRespawn()
+        {
+            _previous = _current;
+            _input.ConsumeBoost();
         }
 
         void LateUpdate()

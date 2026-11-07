@@ -2,7 +2,6 @@ using System;
 
 namespace CylinderShooter.Core
 {
-    /// <summary>Enforces a fixed fire rate against a caller-supplied clock, so it is testable.</summary>
     public sealed class FireRateLimiter
     {
         float _nextShotTime;

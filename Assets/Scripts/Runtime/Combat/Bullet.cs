@@ -4,10 +4,6 @@ using UnityEngine;
 
 namespace CylinderShooter.Combat
 {
-    /// <summary>
-    /// Pooled projectile that lives in cylinder space. Dependencies are injected by its pool;
-    /// it never looks anything up.
-    /// </summary>
     public sealed class Bullet : MonoBehaviour
     {
         float _cylinderRadius;

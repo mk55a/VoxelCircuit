@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 
 namespace CylinderShooter.Ship
 {
-    /// <summary>Gamepad + keyboard input via the Input System. Swappable through <see cref="IShipInput"/>.</summary>
     public sealed class InputSystemShipInput : MonoBehaviour, IShipInput, IFireInput
     {
         InputAction _move;

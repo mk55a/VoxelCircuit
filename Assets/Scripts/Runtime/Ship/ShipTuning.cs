@@ -20,6 +20,8 @@ namespace CylinderShooter.Ship
         [SerializeField] float boostThrustMultiplier = 2f;
         [SerializeField] float boostDuration = 0.6f;
         [SerializeField] float boostCooldown = 2f;
+        [Tooltip("Minimum rate at which speed above the normal maximum returns to it after boosting.")]
+        [SerializeField, Min(0.01f)] float boostRecoveryDeceleration = 30f;
 
         [Header("Visual")]
         [SerializeField] float maxBankAngle = 35f;
@@ -36,6 +38,7 @@ namespace CylinderShooter.Ship
         public float BoostThrustMultiplier => boostThrustMultiplier;
         public float BoostDuration => boostDuration;
         public float BoostCooldown => boostCooldown;
+        public float BoostRecoveryDeceleration => boostRecoveryDeceleration;
         public float MaxBankAngle => maxBankAngle;
         public float BankSmoothing => bankSmoothing;
     }

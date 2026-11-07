@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace CylinderShooter.Combat
 {
-    /// <summary>Owns the bullet prefab instances. All bullets are created up front in Initialize.</summary>
     public sealed class BulletPool : MonoBehaviour, IBulletPool
     {
         [SerializeField] Bullet prefab;

@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace CylinderShooter.Cam
 {
-    /// <summary>Widens the field of view while the target boosts.</summary>
     [RequireComponent(typeof(Camera))]
     public sealed class FovBoostEffect : MonoBehaviour
     {

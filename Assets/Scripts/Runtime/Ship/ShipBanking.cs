@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace CylinderShooter.Ship
 {
-    /// <summary>Visual-only roll on the model child, driven by horizontal speed.</summary>
     public sealed class ShipBanking : MonoBehaviour
     {
         [SerializeField] ShipController ship;

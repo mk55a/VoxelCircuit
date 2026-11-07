@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace CylinderShooter.Combat
 {
-    /// <summary>Composition root: builds shared services and registers them before anything else wakes up.</summary>
     [DefaultExecutionOrder(-100)]
     public sealed class GameInstaller : MonoBehaviour
     {
@@ -11,15 +10,18 @@ namespace CylinderShooter.Combat
         [SerializeField] BulletPool bulletPool;
 
         TargetRegistry _targets;
+        ContactHazardRegistry _hazards;
 
         void Awake()
         {
             _targets = new TargetRegistry();
+            _hazards = new ContactHazardRegistry();
             bulletPool.Initialize(cylinder.radius, _targets);
 
             ServiceLocator.Register(cylinder);
             ServiceLocator.Register<ITargetRegistry>(_targets);
             ServiceLocator.Register<IBulletPool>(bulletPool);
+            ServiceLocator.Register(_hazards);
         }
 
         void OnDestroy()
@@ -27,6 +29,7 @@ namespace CylinderShooter.Combat
             ServiceLocator.Unregister(cylinder);
             ServiceLocator.Unregister<ITargetRegistry>(_targets);
             ServiceLocator.Unregister<IBulletPool>(bulletPool);
+            ServiceLocator.Unregister(_hazards);
         }
     }
 }

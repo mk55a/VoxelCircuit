@@ -15,5 +15,6 @@ namespace CylinderShooter.Core
         float BoostThrustMultiplier { get; }
         float BoostDuration { get; }
         float BoostCooldown { get; }
+        float BoostRecoveryDeceleration { get; }
     }
 }
