@@ -1,4 +1,5 @@
 using CylinderShooter.Core;
+using CylinderShooter.Ship;
 using UnityEngine;
 
 namespace CylinderShooter.Enemies
@@ -7,12 +8,11 @@ namespace CylinderShooter.Enemies
     {
         [Header("Configuration")]
         [SerializeField] private ChaserTuning _tuning;
-        [SerializeField] private MonoBehaviour _target;
+        [SerializeField] private ShipController _target;
         [SerializeField] private float _startAngleDegrees;
         [SerializeField] private float _startHeight;
         [SerializeField] private float _startHeadingDegrees;
 
-        private ICylinderTarget _player;
         private ITargetRegistry _targets;
         private CylinderConfig _cylinder;
         private CylinderPosition _position;
@@ -28,10 +28,9 @@ namespace CylinderShooter.Enemies
 
         private void Awake()
         {
-            _player = _target as ICylinderTarget;
-            if (_tuning == null || _player == null)
+            if (_tuning == null || _target == null)
             {
-                Debug.LogError("Chaser requires tuning and a player target implementing ICylinderTarget.", this);
+                Debug.LogError("Chaser requires tuning and a ship target.", this);
                 enabled = false;
                 return;
             }
@@ -39,7 +38,7 @@ namespace CylinderShooter.Enemies
             _targets = ServiceLocator.Get<ITargetRegistry>();
             _hazards = ServiceLocator.Get<ContactHazardRegistry>();
             _cylinder = ServiceLocator.Get<CylinderConfig>();
-            if (_cylinder.radius <= 0f || _cylinder.minHeight >= _cylinder.maxHeight)
+            if (_cylinder.Radius <= 0f || _cylinder.MinHeight >= _cylinder.MaxHeight)
             {
                 Debug.LogError("Chaser requires a positive radius and valid height bounds.", this);
                 enabled = false;
@@ -54,7 +53,7 @@ namespace CylinderShooter.Enemies
             }
 
             _position = new CylinderPosition(_startAngleDegrees * Mathf.Deg2Rad,
-                Mathf.Clamp(_startHeight, _cylinder.minHeight, _cylinder.maxHeight));
+                Mathf.Clamp(_startHeight, _cylinder.MinHeight, _cylinder.MaxHeight));
             _heading = _startHeadingDegrees;
             PreviousContactPosition = _position;
             _health = _tuning.Health;
@@ -66,12 +65,12 @@ namespace CylinderShooter.Enemies
         private void Update()
         {
             PreviousContactPosition = _position;
-            var targetPosition = new CylinderPosition(_player.Angle, _player.Height);
+            var targetPosition = new CylinderPosition(_target.Angle, _target.Height);
             _heading = ChaserSteering.TurnWithinBounds(_heading, _position, targetPosition,
-                _cylinder.radius, _tuning.Speed, _tuning.TurnSpeed, Time.deltaTime,
-                _cylinder.minHeight, _cylinder.maxHeight);
+                _cylinder.Radius, _tuning.Speed, _tuning.TurnSpeed, Time.deltaTime,
+                _cylinder.MinHeight, _cylinder.MaxHeight);
             _position = ChaserSteering.MoveWithinBounds(_position, _heading, _tuning.Speed,
-                _cylinder.radius, Time.deltaTime, _cylinder.minHeight, _cylinder.maxHeight);
+                _cylinder.Radius, Time.deltaTime, _cylinder.MinHeight, _cylinder.MaxHeight);
             ApplyPosition();
         }
 
@@ -106,7 +105,7 @@ namespace CylinderShooter.Enemies
 
         private void ApplyPosition()
         {
-            transform.position = _position.ToWorld(_cylinder.radius);
+            transform.position = _position.ToWorld(_cylinder.Radius);
             float heading = _heading * Mathf.Deg2Rad;
             Vector3 direction = -CylinderSpace.Tangent(_position.Angle) * Mathf.Cos(heading)
                 + Vector3.up * Mathf.Sin(heading);

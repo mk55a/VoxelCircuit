@@ -34,7 +34,7 @@ namespace CylinderShooter.Enemies
             _targets = ServiceLocator.Get<ITargetRegistry>();
             _hazards = ServiceLocator.Get<ContactHazardRegistry>();
             _cylinder = ServiceLocator.Get<CylinderConfig>();
-            if (_cylinder.radius <= 0f)
+            if (_cylinder.Radius <= 0f)
             {
                 Debug.LogError("Drifter requires a positive cylinder radius.", this);
                 enabled = false;
@@ -60,7 +60,7 @@ namespace CylinderShooter.Enemies
         {
             PreviousContactPosition = _position;
             float speed = _moveRight ? _tuning.Speed : -_tuning.Speed;
-            _position = CylinderMotion.MoveHorizontally(_position, speed, _cylinder.radius, Time.deltaTime);
+            _position = CylinderMotion.MoveHorizontally(_position, speed, _cylinder.Radius, Time.deltaTime);
             ApplyPosition();
         }
 
@@ -91,7 +91,7 @@ namespace CylinderShooter.Enemies
 
         private void ApplyPosition()
         {
-            transform.position = _position.ToWorld(_cylinder.radius);
+            transform.position = _position.ToWorld(_cylinder.Radius);
             Vector3 direction = CylinderSpace.Tangent(_position.Angle) * (_moveRight ? -1f : 1f);
             transform.rotation = Quaternion.LookRotation(direction, CylinderSpace.Outward(_position.Angle));
         }

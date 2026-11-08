@@ -18,9 +18,9 @@ namespace CylinderShooter.Editor
             var arena = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             arena.name = "Arena";
             arena.transform.SetParent(root.transform);
-            float h = cyl.maxHeight - cyl.minHeight + 4f;
-            arena.transform.localScale = new Vector3((cyl.radius - 0.5f) * 2f, h / 2f, (cyl.radius - 0.5f) * 2f);
-            arena.transform.position = new Vector3(0f, (cyl.maxHeight + cyl.minHeight) / 2f, 0f);
+            float h = cyl.MaxHeight - cyl.MinHeight + 4f;
+            arena.transform.localScale = new Vector3((cyl.Radius - 0.5f) * 2f, h / 2f, (cyl.Radius - 0.5f) * 2f);
+            arena.transform.position = new Vector3(0f, (cyl.MaxHeight + cyl.MinHeight) / 2f, 0f);
             Object.DestroyImmediate(arena.GetComponent<Collider>());
 
             // Pillars every 30 degrees; the first is red so the seam and a completed loop are obvious.
@@ -30,7 +30,7 @@ namespace CylinderShooter.Editor
                 var pillar = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 pillar.name = "Marker" + i;
                 pillar.transform.SetParent(root.transform);
-                pillar.transform.position = Core.CylinderSpace.ToWorld(a, cyl.minHeight - 1f, cyl.radius);
+                pillar.transform.position = Core.CylinderSpace.ToWorld(a, cyl.MinHeight - 1f, cyl.Radius);
                 pillar.transform.rotation = Quaternion.LookRotation(Core.CylinderSpace.Tangent(a), Vector3.up);
                 pillar.transform.localScale = new Vector3(1f, 1f, 1f);
                 Object.DestroyImmediate(pillar.GetComponent<Collider>());
@@ -49,11 +49,11 @@ namespace CylinderShooter.Editor
             Tint(model, Color.cyan);
             var banking = ship.AddComponent<ShipBanking>();
 
-            Set(controller, "cylinder", cyl);
-            Set(controller, "tuning", tuning);
-            Set(controller, "inputSource", input);
-            Set(banking, "ship", controller);
-            Set(banking, "model", model.transform);
+            Set(controller, "_cylinder", cyl);
+            Set(controller, "_tuning", tuning);
+            Set(controller, "_inputSource", input);
+            Set(banking, "_ship", controller);
+            Set(banking, "_model", model.transform);
 
             var cam = Camera.main;
             if (cam == null)
@@ -63,9 +63,9 @@ namespace CylinderShooter.Editor
             }
             var follow = GetOrAdd<CylinderFollowCamera>(cam.gameObject);
             var fov = GetOrAdd<FovBoostEffect>(cam.gameObject);
-            Set(follow, "target", controller);
-            Set(follow, "cylinder", cyl);
-            Set(fov, "target", controller);
+            Set(follow, "_targetSource", controller);
+            Set(follow, "_cylinder", cyl);
+            Set(fov, "_targetSource", controller);
 
             Selection.activeGameObject = ship;
             Undo.RegisterCreatedObjectUndo(root, "Build Stage 1");

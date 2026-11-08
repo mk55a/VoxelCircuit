@@ -5,15 +5,15 @@ namespace CylinderShooter.Combat
 {
     public sealed class TargetDummy : MonoBehaviour, IDamageable
     {
-        static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
+        static readonly int s_baseColorId = Shader.PropertyToID("_BaseColor");
         const float FlashTime = 0.08f;
 
-        [SerializeField] float angleDegrees;
-        [SerializeField] float height;
-        [SerializeField] float radius = 1f;
-        [SerializeField, Min(1)] int maxHealth = 5;
-        [SerializeField] float respawnDelay = 1.5f;
-        [SerializeField] Renderer body;
+        [SerializeField] private float _angleDegrees;
+        [SerializeField] private float _height;
+        [SerializeField] private float _radius = 1f;
+        [SerializeField, Min(1)] private int _maxHealth = 5;
+        [SerializeField] private float _respawnDelay = 1.5f;
+        [SerializeField] private Renderer _body;
 
         ITargetRegistry _registry;
         MaterialPropertyBlock _block;
@@ -24,20 +24,20 @@ namespace CylinderShooter.Combat
 
         public bool IsAlive => _health > 0;
         public Vector3 Position => transform.position;
-        public float Radius => radius;
+        public float Radius => _radius;
 
         void Awake()
         {
             _registry = ServiceLocator.Get<ITargetRegistry>();
             var cylinder = ServiceLocator.Get<CylinderConfig>();
 
-            float angle = angleDegrees * Mathf.Deg2Rad;
-            transform.position = CylinderSpace.ToWorld(angle, height, cylinder.radius);
+            float angle = _angleDegrees * Mathf.Deg2Rad;
+            transform.position = CylinderSpace.ToWorld(angle, _height, cylinder.Radius);
             transform.rotation = Quaternion.LookRotation(CylinderSpace.Tangent(angle), Vector3.up);
 
             _block = new MaterialPropertyBlock();
-            _baseColor = body.sharedMaterial.GetColor(BaseColorId);
-            _health = maxHealth;
+            _baseColor = _body.sharedMaterial.GetColor(s_baseColorId);
+            _health = _maxHealth;
         }
 
         void OnEnable() { if (IsAlive) _registry.Register(this); }
@@ -51,8 +51,8 @@ namespace CylinderShooter.Combat
             if (_health > 0) return;
 
             _registry.Unregister(this);
-            body.enabled = false;
-            _respawnAt = Time.time + respawnDelay;
+            _body.enabled = false;
+            _respawnAt = Time.time + _respawnDelay;
         }
 
         void Update()
@@ -63,14 +63,14 @@ namespace CylinderShooter.Combat
                 return;
             }
             _flashLeft = Mathf.Max(0f, _flashLeft - Time.deltaTime);
-            _block.SetColor(BaseColorId, Color.Lerp(_baseColor, Color.white, _flashLeft / FlashTime));
-            body.SetPropertyBlock(_block);
+            _block.SetColor(s_baseColorId, Color.Lerp(_baseColor, Color.white, _flashLeft / FlashTime));
+            _body.SetPropertyBlock(_block);
         }
 
         void Respawn()
         {
-            _health = maxHealth;
-            body.enabled = true;
+            _health = _maxHealth;
+            _body.enabled = true;
             _registry.Register(this);
         }
     }

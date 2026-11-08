@@ -16,7 +16,7 @@ namespace CylinderShooter.Ship
 
         private void Awake()
         {
-            if (_ship == null || _life == null || _cylinder == null || _cylinder.radius <= 0f)
+            if (_ship == null || _life == null || _cylinder == null || _cylinder.Radius <= 0f)
             {
                 Debug.LogError("PlayerContact requires the ship, life component and a valid cylinder.", this);
                 enabled = false;
@@ -40,7 +40,7 @@ namespace CylinderShooter.Ship
             {
                 var hazard = _hazards.Hazards[i];
                 if (!hazard.IsAlive || !CylinderContact.SweptSpheres(start, current, _life.ContactRadius,
-                    hazard.PreviousContactPosition, hazard.ContactPosition, hazard.Radius, _cylinder.radius))
+                    hazard.PreviousContactPosition, hazard.ContactPosition, hazard.Radius, _cylinder.Radius))
                 {
                     continue;
                 }

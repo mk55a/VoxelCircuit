@@ -6,8 +6,8 @@ namespace CylinderShooter.Combat
     [DefaultExecutionOrder(-100)]
     public sealed class GameInstaller : MonoBehaviour
     {
-        [SerializeField] CylinderConfig cylinder;
-        [SerializeField] BulletPool bulletPool;
+        [SerializeField] private CylinderConfig _cylinder;
+        [SerializeField] private BulletPool _bulletPool;
 
         TargetRegistry _targets;
         ContactHazardRegistry _hazards;
@@ -16,19 +16,19 @@ namespace CylinderShooter.Combat
         {
             _targets = new TargetRegistry();
             _hazards = new ContactHazardRegistry();
-            bulletPool.Initialize(cylinder.radius, _targets);
+            _bulletPool.Initialize(_cylinder.Radius, _targets);
 
-            ServiceLocator.Register(cylinder);
+            ServiceLocator.Register(_cylinder);
             ServiceLocator.Register<ITargetRegistry>(_targets);
-            ServiceLocator.Register<IBulletPool>(bulletPool);
+            ServiceLocator.Register<IBulletPool>(_bulletPool);
             ServiceLocator.Register(_hazards);
         }
 
         void OnDestroy()
         {
-            ServiceLocator.Unregister(cylinder);
+            ServiceLocator.Unregister(_cylinder);
             ServiceLocator.Unregister<ITargetRegistry>(_targets);
-            ServiceLocator.Unregister<IBulletPool>(bulletPool);
+            ServiceLocator.Unregister<IBulletPool>(_bulletPool);
             ServiceLocator.Unregister(_hazards);
         }
     }

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fbc9fa68b108f14e8f749e0dfbbe925, type: 3}
   m_Name: CylinderConfig
   m_EditorClassIdentifier: Game.Runtime::CylinderShooter.CylinderConfig
-  radius: 60
-  minHeight: -6
-  maxHeight: 6
+  _radius: 60
+  _minHeight: -6
+  _maxHeight: 6

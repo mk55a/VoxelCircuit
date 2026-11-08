@@ -1,3 +1,4 @@
+using CylinderShooter.Ship;
 using UnityEngine;
 
 namespace CylinderShooter.Cam
@@ -5,12 +6,11 @@ namespace CylinderShooter.Cam
     [RequireComponent(typeof(Camera))]
     public sealed class FovBoostEffect : MonoBehaviour
     {
-        [SerializeField] MonoBehaviour target;
-        [SerializeField] float boostFovAdd = 18f;
-        [SerializeField] float smoothing = 8f;
+        [SerializeField] private ShipController _targetSource;
+        [SerializeField] private float _boostFovAdd = 18f;
+        [SerializeField] private float _smoothing = 8f;
 
         Camera _camera;
-        ICameraTarget _target;
         float _baseFov;
         bool _boosting;
 
@@ -18,18 +18,20 @@ namespace CylinderShooter.Cam
         {
             _camera = GetComponent<Camera>();
             _baseFov = _camera.fieldOfView;
-            _target = target as ICameraTarget;
+            if (_targetSource != null) return;
+            Debug.LogError("FovBoostEffect requires a ship target.", this);
+            enabled = false;
         }
 
-        void OnEnable() { if (_target != null) _target.BoostChanged += OnBoostChanged; }
-        void OnDisable() { if (_target != null) _target.BoostChanged -= OnBoostChanged; }
+        void OnEnable() { if (_targetSource != null) _targetSource.OnBoostChanged += OnBoostChanged; }
+        void OnDisable() { if (_targetSource != null) _targetSource.OnBoostChanged -= OnBoostChanged; }
 
         void OnBoostChanged(bool active) => _boosting = active;
 
         void LateUpdate()
         {
-            float goal = _baseFov + (_boosting ? boostFovAdd : 0f);
-            _camera.fieldOfView = Mathf.Lerp(_camera.fieldOfView, goal, 1f - Mathf.Exp(-smoothing * Time.deltaTime));
+            float goal = _baseFov + (_boosting ? _boostFovAdd : 0f);
+            _camera.fieldOfView = Mathf.Lerp(_camera.fieldOfView, goal, 1f - Mathf.Exp(-_smoothing * Time.deltaTime));
         }
     }
 }

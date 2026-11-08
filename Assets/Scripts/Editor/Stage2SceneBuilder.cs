@@ -33,16 +33,16 @@ namespace CylinderShooter.Editor
             var game = new GameObject("Game");
             var pool = new GameObject("BulletPool").AddComponent<BulletPool>();
             pool.transform.SetParent(game.transform);
-            Set(pool, "prefab", bulletPrefab);
+            Set(pool, "_prefab", bulletPrefab);
 
             var installer = game.AddComponent<GameInstaller>();
-            Set(installer, "cylinder", cylinder);
-            Set(installer, "bulletPool", pool);
+            Set(installer, "_cylinder", cylinder);
+            Set(installer, "_bulletPool", pool);
 
             var cannon = ship.gameObject.AddComponent<MainCannon>();
-            Set(cannon, "tuning", weapon);
-            Set(cannon, "aimSource", ship);
-            Set(cannon, "fireInput", ship.GetComponent<InputSystemShipInput>());
+            Set(cannon, "_tuning", weapon);
+            Set(cannon, "_aimSource", ship);
+            Set(cannon, "_fireInput", ship.GetComponent<InputSystemShipInput>());
             PlayerLifeSceneBuilder.Configure(ship);
 
             var targets = new GameObject("Targets");
@@ -51,8 +51,8 @@ namespace CylinderShooter.Editor
             {
                 var dummy = (GameObject)PrefabUtility.InstantiatePrefab(dummyPrefab, targets.transform);
                 var td = dummy.GetComponent<TargetDummy>();
-                SetFloat(td, "angleDegrees", angles[i]);
-                SetFloat(td, "height", (i % 3 - 1) * 3f);
+                SetFloat(td, "_angleDegrees", angles[i]);
+                SetFloat(td, "_height", (i % 3 - 1) * 3f);
             }
 
             Undo.RegisterCreatedObjectUndo(game, "Add Stage 2");
@@ -85,7 +85,7 @@ namespace CylinderShooter.Editor
             Object.DestroyImmediate(go.GetComponent<Collider>());
             Tint(go, new Color(0.9f, 0.3f, 0.2f));
             var dummy = go.AddComponent<TargetDummy>();
-            Set(dummy, "body", go.GetComponent<Renderer>());
+            Set(dummy, "_body", go.GetComponent<Renderer>());
             return SavePrefab(go, "TargetDummy");
         }
 

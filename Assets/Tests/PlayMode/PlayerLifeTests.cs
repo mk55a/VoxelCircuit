@@ -71,9 +71,9 @@ namespace CylinderShooter.Tests
             var contact = _shipObject.AddComponent<PlayerContact>();
             _visual = new GameObject("Visual");
             _visual.transform.SetParent(_shipObject.transform);
-            SetField(_ship, "cylinder", _cylinder);
-            SetField(_ship, "tuning", _shipTuning);
-            SetField(_ship, "inputSource", input);
+            SetField(_ship, "_cylinder", _cylinder);
+            SetField(_ship, "_tuning", _shipTuning);
+            SetField(_ship, "_inputSource", input);
             SetField(_ship, "_life", _life);
             SetField(_life, "_tuning", _lifeTuning);
             SetField(_life, "_ship", _ship);
@@ -113,11 +113,11 @@ namespace CylinderShooter.Tests
             Assert.AreEqual(2, _life.Lives);
             Assert.IsFalse(_enemyObject.activeSelf);
             Assert.IsFalse(_visual.activeSelf);
-            Vector3 deathPosition = _ship.Position.ToWorld(_cylinder.radius);
+            Vector3 deathPosition = _ship.Position.ToWorld(_cylinder.Radius);
             yield return new WaitForSeconds(0.15f);
             Assert.AreEqual(PlayerStatus.Invulnerable, _life.Status);
             Assert.IsTrue(_visual.activeSelf);
-            Assert.That(Vector3.Distance(deathPosition, _ship.Position.ToWorld(_cylinder.radius)), Is.LessThan(0.001f));
+            Assert.That(Vector3.Distance(deathPosition, _ship.Position.ToWorld(_cylinder.Radius)), Is.LessThan(0.001f));
             Assert.AreEqual(0f, _ship.HorizontalVelocity, 0.001f);
 
             _secondEnemyObject = CreateChaser();
@@ -147,7 +147,7 @@ namespace CylinderShooter.Tests
             var renderer = _enemyObject.AddComponent<MeshRenderer>();
             renderer.sharedMaterial = new Material(Shader.Find("Universal Render Pipeline/Lit"));
             var dummy = _enemyObject.AddComponent<TargetDummy>();
-            SetField(dummy, "body", renderer);
+            SetField(dummy, "_body", renderer);
             _enemyObject.SetActive(true);
             yield return null;
             Assert.AreEqual(PlayerStatus.Alive, _life.Status);
@@ -181,9 +181,9 @@ namespace CylinderShooter.Tests
             _cannonObject.SetActive(false);
             var input = _cannonObject.AddComponent<LifeTestInput>();
             var cannon = _cannonObject.AddComponent<MainCannon>();
-            SetField(cannon, "tuning", _weaponTuning);
-            SetField(cannon, "aimSource", _ship);
-            SetField(cannon, "fireInput", input);
+            SetField(cannon, "_tuning", _weaponTuning);
+            SetField(cannon, "_aimSource", _ship);
+            SetField(cannon, "_fireInput", input);
             SetField(cannon, "_life", _life);
             _cannonObject.SetActive(true);
             _life.TryDestroy();

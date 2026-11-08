@@ -5,8 +5,8 @@ namespace CylinderShooter.Combat
 {
     public sealed class BulletPool : MonoBehaviour, IBulletPool
     {
-        [SerializeField] Bullet prefab;
-        [SerializeField, Min(1)] int prewarm = 256;
+        [SerializeField] private Bullet _prefab;
+        [SerializeField, Min(1)] private int _prewarm = 256;
 
         ObjectPool<Bullet> _pool;
 
@@ -15,13 +15,13 @@ namespace CylinderShooter.Combat
             _pool = new ObjectPool<Bullet>(
                 create: () =>
                 {
-                    var bullet = Instantiate(prefab, transform);
+                    var bullet = Instantiate(_prefab, transform);
                     bullet.Initialize(cylinderRadius, targets, Return);
                     return bullet;
                 },
                 onGet: b => b.gameObject.SetActive(true),
                 onRelease: b => b.gameObject.SetActive(false),
-                prewarm: prewarm);
+                prewarm: _prewarm);
         }
 
         public Bullet Get() => _pool.Get();

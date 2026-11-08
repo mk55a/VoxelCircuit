@@ -48,7 +48,7 @@ namespace CylinderShooter.Editor
             serialized.ApplyModifiedProperties();
 
             float angle = angleDegrees * Mathf.Deg2Rad;
-            instance.transform.position = CylinderSpace.ToWorld(angle, height, cylinder.radius);
+            instance.transform.position = CylinderSpace.ToWorld(angle, height, cylinder.Radius);
             var direction = CylinderSpace.Tangent(angle) * (moveRight ? -1f : 1f);
             instance.transform.rotation = Quaternion.LookRotation(direction, CylinderSpace.Outward(angle));
             PrefabUtility.RecordPrefabInstancePropertyModifications(instance.transform);

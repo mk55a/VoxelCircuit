@@ -9,34 +9,34 @@ namespace CylinderShooter.Core
     /// </summary>
     public static class ServiceLocator
     {
-        static readonly Dictionary<Type, object> Services = new Dictionary<Type, object>();
+        static readonly Dictionary<Type, object> s_services = new Dictionary<Type, object>();
 
         public static void Register<T>(T service) where T : class
         {
             if (service == null) throw new ArgumentNullException(nameof(service));
-            Services[typeof(T)] = service;
+            s_services[typeof(T)] = service;
         }
 
         public static void Unregister<T>(T service) where T : class
         {
-            if (Services.TryGetValue(typeof(T), out var current) && ReferenceEquals(current, service))
-                Services.Remove(typeof(T));
+            if (s_services.TryGetValue(typeof(T), out var current) && ReferenceEquals(current, service))
+                s_services.Remove(typeof(T));
         }
 
         public static T Get<T>() where T : class
         {
-            if (Services.TryGetValue(typeof(T), out var service)) return (T)service;
+            if (s_services.TryGetValue(typeof(T), out var service)) return (T)service;
             throw new InvalidOperationException(
                 $"Service {typeof(T).Name} is not registered. Is there a GameInstaller in the scene?");
         }
 
         public static bool TryGet<T>(out T service) where T : class
         {
-            if (Services.TryGetValue(typeof(T), out var s)) { service = (T)s; return true; }
+            if (s_services.TryGetValue(typeof(T), out var s)) { service = (T)s; return true; }
             service = null;
             return false;
         }
 
-        public static void Clear() => Services.Clear();
+        public static void Clear() => s_services.Clear();
     }
 }

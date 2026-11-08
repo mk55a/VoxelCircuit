@@ -34,9 +34,9 @@ namespace CylinderShooter.Editor
             var banking = ship.GetComponent<ShipBanking>();
             var cannon = ship.GetComponent<MainCannon>();
             var shipProperties = new SerializedObject(ship);
-            var cylinder = shipProperties.FindProperty("cylinder").objectReferenceValue;
+            var cylinder = shipProperties.FindProperty("_cylinder").objectReferenceValue;
             var model = banking != null
-                ? new SerializedObject(banking).FindProperty("model").objectReferenceValue as Transform
+                ? new SerializedObject(banking).FindProperty("_model").objectReferenceValue as Transform
                 : null;
             if (tuning == null || cannon == null || cylinder == null || model == null
                 || !model.IsChildOf(ship.transform))

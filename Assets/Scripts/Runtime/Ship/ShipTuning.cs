@@ -7,39 +7,39 @@ namespace CylinderShooter.Ship
     public sealed class ShipTuning : ScriptableObject, IShipTuning
     {
         [Header("Movement")]
-        [SerializeField] float thrust = 70f;
-        [SerializeField] float verticalThrust = 50f;
-        [SerializeField] float drag = 3f;
-        [SerializeField] float maxSpeed = 22f;
-        [SerializeField] float maxVerticalSpeed = 12f;
-        [SerializeField] float reverseThrustMultiplier = 2f;
-        [SerializeField] float turnTime = 0.15f;
+        [SerializeField] private float _thrust = 70f;
+        [SerializeField] private float _verticalThrust = 50f;
+        [SerializeField] private float _drag = 3f;
+        [SerializeField] private float _maxSpeed = 22f;
+        [SerializeField] private float _maxVerticalSpeed = 12f;
+        [SerializeField] private float _reverseThrustMultiplier = 2f;
+        [SerializeField] private float _turnTime = 0.15f;
 
         [Header("Boost")]
-        [SerializeField] float boostSpeedMultiplier = 1.8f;
-        [SerializeField] float boostThrustMultiplier = 2f;
-        [SerializeField] float boostDuration = 0.6f;
-        [SerializeField] float boostCooldown = 2f;
+        [SerializeField] private float _boostSpeedMultiplier = 1.8f;
+        [SerializeField] private float _boostThrustMultiplier = 2f;
+        [SerializeField] private float _boostDuration = 0.6f;
+        [SerializeField] private float _boostCooldown = 2f;
         [Tooltip("Minimum rate at which speed above the normal maximum returns to it after boosting.")]
-        [SerializeField, Min(0.01f)] float boostRecoveryDeceleration = 30f;
+        [SerializeField, Min(0.01f)] private float _boostRecoveryDeceleration = 30f;
 
         [Header("Visual")]
-        [SerializeField] float maxBankAngle = 35f;
-        [SerializeField] float bankSmoothing = 10f;
+        [SerializeField] private float _maxBankAngle = 35f;
+        [SerializeField] private float _bankSmoothing = 10f;
 
-        public float Thrust => thrust;
-        public float VerticalThrust => verticalThrust;
-        public float Drag => drag;
-        public float MaxSpeed => maxSpeed;
-        public float MaxVerticalSpeed => maxVerticalSpeed;
-        public float ReverseThrustMultiplier => reverseThrustMultiplier;
-        public float TurnTime => turnTime;
-        public float BoostSpeedMultiplier => boostSpeedMultiplier;
-        public float BoostThrustMultiplier => boostThrustMultiplier;
-        public float BoostDuration => boostDuration;
-        public float BoostCooldown => boostCooldown;
-        public float BoostRecoveryDeceleration => boostRecoveryDeceleration;
-        public float MaxBankAngle => maxBankAngle;
-        public float BankSmoothing => bankSmoothing;
+        public float Thrust => _thrust;
+        public float VerticalThrust => _verticalThrust;
+        public float Drag => _drag;
+        public float MaxSpeed => _maxSpeed;
+        public float MaxVerticalSpeed => _maxVerticalSpeed;
+        public float ReverseThrustMultiplier => _reverseThrustMultiplier;
+        public float TurnTime => _turnTime;
+        public float BoostSpeedMultiplier => _boostSpeedMultiplier;
+        public float BoostThrustMultiplier => _boostThrustMultiplier;
+        public float BoostDuration => _boostDuration;
+        public float BoostCooldown => _boostCooldown;
+        public float BoostRecoveryDeceleration => _boostRecoveryDeceleration;
+        public float MaxBankAngle => _maxBankAngle;
+        public float BankSmoothing => _bankSmoothing;
     }
 }

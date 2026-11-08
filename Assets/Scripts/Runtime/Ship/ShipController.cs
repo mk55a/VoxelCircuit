@@ -7,11 +7,11 @@ namespace CylinderShooter.Ship
 {
     public sealed class ShipController : MonoBehaviour, ICameraTarget, IAimSource
     {
-        [SerializeField] CylinderConfig cylinder;
-        [SerializeField] ShipTuning tuning;
-        [SerializeField] MonoBehaviour inputSource;
-        [SerializeField] float startAngleDegrees;
-        [SerializeField] PlayerLife _life;
+        [SerializeField] private CylinderConfig _cylinder;
+        [SerializeField] private ShipTuning _tuning;
+        [SerializeField] private MonoBehaviour _inputSource;
+        [SerializeField] private float _startAngleDegrees;
+        [SerializeField] private PlayerLife _life;
 
         ShipMotor _motor;
         ShipFacing _facing;
@@ -20,7 +20,7 @@ namespace CylinderShooter.Ship
         CylinderPosition _previous;
         CylinderPosition _current;
 
-        public event Action<bool> BoostChanged;
+        public event Action<bool> OnBoostChanged;
 
         public float Angle => Interpolated.Angle;
         public float Height => Interpolated.Height;
@@ -29,8 +29,8 @@ namespace CylinderShooter.Ship
         public float Facing => _facing.Value;
         public CylinderPosition Position => Interpolated;
         public float FacingSign => _facing.Value >= 0f ? 1f : -1f;
-        public float NormalizedVelocity => Mathf.Clamp(_motor.Velocity.x / tuning.MaxSpeed, -1.5f, 1.5f);
-        public ShipTuning Tuning => tuning;
+        public float NormalizedVelocity => Mathf.Clamp(_motor.Velocity.x / _tuning.MaxSpeed, -1.5f, 1.5f);
+        public ShipTuning Tuning => _tuning;
 
         CylinderPosition Interpolated
         {
@@ -43,13 +43,13 @@ namespace CylinderShooter.Ship
 
         void Awake()
         {
-            _input = inputSource as IShipInput;
+            _input = _inputSource as IShipInput;
             if (_input == null) Debug.LogError("ShipController needs an IShipInput assigned.", this);
-            _motor = new ShipMotor(tuning);
+            _motor = new ShipMotor(_tuning);
             _facing = new ShipFacing();
-            _boost = new BoostAbility(tuning);
-            _boost.ActiveChanged += active => BoostChanged?.Invoke(active);
-            _current = _previous = new CylinderPosition(startAngleDegrees * Mathf.Deg2Rad, 0f);
+            _boost = new BoostAbility(_tuning);
+            _boost.OnActiveChanged += active => OnBoostChanged?.Invoke(active);
+            _current = _previous = new CylinderPosition(_startAngleDegrees * Mathf.Deg2Rad, 0f);
         }
 
         void FixedUpdate()
@@ -64,15 +64,15 @@ namespace CylinderShooter.Ship
 
             if (_input.ConsumeBoost()) _boost.TryActivate();
             _boost.Tick(dt);
-            _facing.Update(move.x, tuning.TurnTime, dt);
+            _facing.Update(move.x, _tuning.TurnTime, dt);
             _motor.Step(move, _boost.IsActive, dt);
 
             _previous = _current;
             // Increasing angle runs screen-left for a camera outside the ring, so screen-right is -angle.
-            float deltaAngle = -CylinderSpace.ArcToAngle(_motor.Velocity.x * dt, cylinder.radius);
+            float deltaAngle = -CylinderSpace.ArcToAngle(_motor.Velocity.x * dt, _cylinder.Radius);
             var next = _current.Moved(deltaAngle, _motor.Velocity.y * dt);
 
-            float clamped = Mathf.Clamp(next.Height, cylinder.minHeight, cylinder.maxHeight);
+            float clamped = Mathf.Clamp(next.Height, _cylinder.MinHeight, _cylinder.MaxHeight);
             if (!Mathf.Approximately(clamped, next.Height)) _motor.StopVertical();
             _current = next.WithHeight(clamped);
         }
@@ -94,7 +94,7 @@ namespace CylinderShooter.Ship
         void LateUpdate()
         {
             var p = Interpolated;
-            transform.position = p.ToWorld(cylinder.radius);
+            transform.position = p.ToWorld(_cylinder.Radius);
 
             // Screen-right is -tangent; face along it, with the model's up pointing away from the axis.
             var right = -CylinderSpace.Tangent(p.Angle);

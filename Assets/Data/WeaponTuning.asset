@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ff58fd697c0d654e801897cbd7c0421, type: 3}
   m_Name: WeaponTuning
   m_EditorClassIdentifier: Game.Runtime::CylinderShooter.Combat.WeaponTuning
-  shotsPerSecond: 12
-  bulletSpeed: 60
-  bulletLifetime: 1.5
-  bulletHitRadius: 0.4
-  damage: 1
-  muzzleOffset: 1.5
-  inheritVelocity: 0.5
+  _shotsPerSecond: 12
+  _bulletSpeed: 60
+  _bulletLifetime: 1.5
+  _bulletHitRadius: 0.4
+  _damage: 1
+  _muzzleOffset: 1.5
+  _inheritVelocity: 0.5

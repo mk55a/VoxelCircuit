@@ -11,7 +11,7 @@ namespace CylinderShooter.Core
 
         public BoostAbility(IShipTuning tuning) => _tuning = tuning;
 
-        public event Action<bool> ActiveChanged;
+        public event Action<bool> OnActiveChanged;
 
         public bool IsActive => _activeLeft > 0f;
         public bool IsReady => !IsActive && _cooldownLeft <= 0f;
@@ -21,7 +21,7 @@ namespace CylinderShooter.Core
         {
             if (!IsReady) return false;
             _activeLeft = _tuning.BoostDuration;
-            ActiveChanged?.Invoke(true);
+            OnActiveChanged?.Invoke(true);
             return true;
         }
 
@@ -30,7 +30,7 @@ namespace CylinderShooter.Core
             if (!IsActive) return;
             _activeLeft = 0f;
             _cooldownLeft = _tuning.BoostCooldown;
-            ActiveChanged?.Invoke(false);
+            OnActiveChanged?.Invoke(false);
         }
 
         public void Tick(float dt)
@@ -42,7 +42,7 @@ namespace CylinderShooter.Core
                 {
                     _activeLeft = 0f;
                     _cooldownLeft = _tuning.BoostCooldown;
-                    ActiveChanged?.Invoke(false);
+                    OnActiveChanged?.Invoke(false);
                 }
             }
             else if (_cooldownLeft > 0f)

@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ca219f797fe9d45b7ff0c01dec4250, type: 3}
   m_Name: ShipTuning
   m_EditorClassIdentifier: Game.Runtime::CylinderShooter.Ship.ShipTuning
-  thrust: 70
-  verticalThrust: 50
-  drag: 3
-  maxSpeed: 22
-  maxVerticalSpeed: 12
-  reverseThrustMultiplier: 2
-  turnTime: 0.15
-  boostSpeedMultiplier: 1.8
-  boostThrustMultiplier: 2
-  boostDuration: 0.6
-  boostCooldown: 2
-  maxBankAngle: 35
-  bankSmoothing: 10
+  _thrust: 70
+  _verticalThrust: 50
+  _drag: 3
+  _maxSpeed: 22
+  _maxVerticalSpeed: 12
+  _reverseThrustMultiplier: 2
+  _turnTime: 0.15
+  _boostSpeedMultiplier: 1.8
+  _boostThrustMultiplier: 2
+  _boostDuration: 0.6
+  _boostCooldown: 2
+  _maxBankAngle: 35
+  _bankSmoothing: 10

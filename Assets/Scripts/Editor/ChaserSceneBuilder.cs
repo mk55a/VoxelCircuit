@@ -56,7 +56,7 @@ namespace CylinderShooter.Editor
             serialized.ApplyModifiedProperties();
 
             float angle = angleDegrees * Mathf.Deg2Rad;
-            instance.transform.position = CylinderSpace.ToWorld(angle, height, cylinder.radius);
+            instance.transform.position = CylinderSpace.ToWorld(angle, height, cylinder.Radius);
             Vector3 direction = -CylinderSpace.Tangent(angle) * Mathf.Cos(headingDegrees * Mathf.Deg2Rad)
                 + Vector3.up * Mathf.Sin(headingDegrees * Mathf.Deg2Rad);
             instance.transform.rotation = Quaternion.LookRotation(direction, CylinderSpace.Outward(angle));

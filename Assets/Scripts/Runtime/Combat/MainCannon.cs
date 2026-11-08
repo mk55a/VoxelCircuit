@@ -6,26 +6,28 @@ namespace CylinderShooter.Combat
 {
     public sealed class MainCannon : MonoBehaviour, IWeapon
     {
-        [SerializeField] WeaponTuning tuning;
-        [SerializeField] MonoBehaviour aimSource;
-        [SerializeField] MonoBehaviour fireInput;
-        [SerializeField] PlayerLife _life;
+        [SerializeField] private WeaponTuning _tuning;
+        [SerializeField] private ShipController _aimSource;
+        [SerializeField] private MonoBehaviour _fireInput;
+        [SerializeField] private PlayerLife _life;
 
         readonly FireRateLimiter _limiter = new FireRateLimiter();
-        IAimSource _aim;
         IFireInput _input;
         IBulletPool _pool;
         float _cylinderRadius;
 
         void Awake()
         {
-            _aim = aimSource as IAimSource;
-            _input = fireInput as IFireInput;
-            if (_aim == null || _input == null)
-                Debug.LogError("MainCannon needs an IAimSource and IFireInput assigned.", this);
+            _input = _fireInput as IFireInput;
+            if (_aimSource == null || _input == null)
+            {
+                Debug.LogError("MainCannon needs a ship aim source and an IFireInput assigned.", this);
+                enabled = false;
+                return;
+            }
 
             _pool = ServiceLocator.Get<IBulletPool>();
-            _cylinderRadius = ServiceLocator.Get<CylinderConfig>().radius;
+            _cylinderRadius = ServiceLocator.Get<CylinderConfig>().Radius;
         }
 
         void Update()
@@ -36,14 +38,14 @@ namespace CylinderShooter.Combat
         public bool TryFire()
         {
             if (_life != null && !_life.CanControl) return false;
-            if (!_limiter.TryFire(Time.time, tuning.ShotsPerSecond)) return false;
+            if (!_limiter.TryFire(Time.time, _tuning.ShotsPerSecond)) return false;
 
-            float dir = _aim.FacingSign;
-            var start = _aim.Position.Moved(-dir * tuning.MuzzleOffset / _cylinderRadius, 0f);
-            float inherited = Mathf.Max(0f, _aim.HorizontalVelocity * dir) * tuning.InheritVelocity;
-            var velocity = new Vector2(dir * (tuning.BulletSpeed + inherited), 0f);
+            float dir = _aimSource.FacingSign;
+            var start = _aimSource.Position.Moved(-dir * _tuning.MuzzleOffset / _cylinderRadius, 0f);
+            float inherited = Mathf.Max(0f, _aimSource.HorizontalVelocity * dir) * _tuning.InheritVelocity;
+            var velocity = new Vector2(dir * (_tuning.BulletSpeed + inherited), 0f);
 
-            _pool.Get().Launch(start, velocity, tuning.BulletLifetime, tuning.BulletHitRadius, tuning.Damage);
+            _pool.Get().Launch(start, velocity, _tuning.BulletLifetime, _tuning.BulletHitRadius, _tuning.Damage);
             return true;
         }
     }

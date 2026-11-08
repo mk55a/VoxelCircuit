@@ -91,7 +91,7 @@ namespace CylinderShooter.Tests
             _bulletObject = new GameObject("Test Bullet");
             var bullet = _bulletObject.AddComponent<Bullet>();
             bool released = false;
-            bullet.Initialize(_cylinder.radius, _registry, _ => released = true);
+            bullet.Initialize(_cylinder.Radius, _registry, _ => released = true);
             bullet.Launch(new CylinderPosition(0f, 0f), Vector2.zero, 1f, 0.4f, 1);
 
             yield return null;
