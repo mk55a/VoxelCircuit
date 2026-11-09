@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8e6e45d1613b324ab5356e9257341f5, type: 3}
+  m_Name: Grid
+  m_EditorClassIdentifier: Game.Runtime::CylinderShooter.Formations.FormationDefinition
+  _shape: 2
+  _count: 25
+  _columns: 5
+  _rows: 5
+  _horizontalSpacing: 1.8
+  _verticalSpacing: 1.8
+  _centerHeight: 0
+  _speed: 7
+  _detectionRange: 18
+  _waveAmplitude: 2
+  _waveFrequency: 0.5
+  _wavePhaseDegrees: 30

@@ -13,6 +13,7 @@ namespace CylinderShooter.Cam
         Camera _camera;
         float _baseFov;
         bool _boosting;
+        public float MaximumFieldOfView => _baseFov + Mathf.Max(0f, _boostFovAdd);
 
         void Awake()
         {

@@ -72,7 +72,7 @@ namespace CylinderShooter.Tests
             Assert.AreEqual(70f, shipTuning.Thrust);
             Assert.AreEqual(60f, weaponTuning.BulletSpeed);
 
-            var scene = EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity", OpenSceneMode.Additive);
+            var scene = EditorSceneManager.OpenScene("Assets/Scenes/PlayArena.unity", OpenSceneMode.Additive);
             try
             {
                 var components = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<MonoBehaviour>(true)).ToArray();

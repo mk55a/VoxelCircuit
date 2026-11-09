@@ -1,4 +1,6 @@
+using System;
 using CylinderShooter.Core;
+using CylinderShooter.Formations;
 using CylinderShooter.Ship;
 using UnityEngine;
 
@@ -19,12 +21,34 @@ namespace CylinderShooter.Enemies
         private float _heading;
         private int _health;
         private ContactHazardRegistry _hazards;
+        private FormationMotion _formation;
+        private int _formationSlot;
+        private Action<Chaser> _onReturned;
+        private CylinderPosition _spawnPosition;
+        private float _spawnHeading;
+        private bool _hasSpawn;
 
         public bool IsAlive => _health > 0;
+        public bool HasValidTuning => _tuning != null && _tuning.HitRadius > 0f && _tuning.Health > 0;
         public Vector3 Position => transform.position;
         public float Radius => _tuning.HitRadius;
         public CylinderPosition PreviousContactPosition { get; private set; }
         public CylinderPosition ContactPosition => _position;
+        public bool IsInFormation => _formation != null;
+
+        public void PrepareSpawn(ShipController target, FormationMotion formation, int slot,
+            Action<Chaser> onReturned)
+        {
+            if (gameObject.activeSelf || target == null || formation == null || onReturned == null)
+                throw new InvalidOperationException("A pooled Chaser must be inactive and have a target, formation and owner.");
+            _target = target;
+            _formation = formation;
+            _formationSlot = slot;
+            _onReturned = onReturned;
+            _spawnPosition = formation.PositionAt(slot);
+            _spawnHeading = formation.HeadingAt(slot);
+            _hasSpawn = true;
+        }
 
         private void Awake()
         {
@@ -52,9 +76,10 @@ namespace CylinderShooter.Enemies
                 return;
             }
 
-            _position = new CylinderPosition(_startAngleDegrees * Mathf.Deg2Rad,
+            _position = _hasSpawn ? _spawnPosition : new CylinderPosition(_startAngleDegrees * Mathf.Deg2Rad,
                 Mathf.Clamp(_startHeight, _cylinder.MinHeight, _cylinder.MaxHeight));
-            _heading = _startHeadingDegrees;
+            _heading = _hasSpawn ? _spawnHeading : _startHeadingDegrees;
+            _hasSpawn = false;
             PreviousContactPosition = _position;
             _health = _tuning.Health;
             ApplyPosition();
@@ -66,6 +91,18 @@ namespace CylinderShooter.Enemies
         {
             PreviousContactPosition = _position;
             var targetPosition = new CylinderPosition(_target.Angle, _target.Height);
+            if (_formation != null)
+            {
+                _position = _formation.PositionAt(_formationSlot);
+                _heading = _formation.HeadingAt(_formationSlot);
+                if (_formation.IsWithinDetectionRange(_position, targetPosition))
+                {
+                    _formation.RemoveMember();
+                    _formation = null;
+                }
+                ApplyPosition();
+                return;
+            }
             _heading = ChaserSteering.TurnWithinBounds(_heading, _position, targetPosition,
                 _cylinder.Radius, _tuning.Speed, _tuning.TurnSpeed, Time.deltaTime,
                 _cylinder.MinHeight, _cylinder.MaxHeight);
@@ -79,6 +116,12 @@ namespace CylinderShooter.Enemies
             _health = 0;
             _targets?.Unregister(this);
             _hazards?.Unregister(this);
+            if (_formation != null) _formation.RemoveMember();
+            _formation = null;
+            _hasSpawn = false;
+            var onReturned = _onReturned;
+            _onReturned = null;
+            onReturned?.Invoke(this);
         }
 
         public void TakeHit(int damage)
