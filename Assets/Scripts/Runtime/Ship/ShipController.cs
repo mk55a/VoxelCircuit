@@ -96,13 +96,14 @@ namespace CylinderShooter.Ship
             var p = Interpolated;
             transform.position = p.ToWorld(_cylinder.Radius);
 
-            // Screen-right is -tangent; face along it, with the model's up pointing away from the axis.
+            // Screen-right is -tangent. The model's up is world up, so the camera (outside the ring)
+            // sees the ship side-on; banking then tilts its top or bottom toward the camera.
             var right = -CylinderSpace.Tangent(p.Angle);
-            // The flip swings the nose through the cylinder axis direction so the turn reads on screen.
+            // The flip yaws the nose away from the camera (into the ring), so mid-turn the rear shows.
             var outward = CylinderSpace.Outward(p.Angle);
             float f = _facing.Value;
             var forward = right * f - outward * Mathf.Sqrt(Mathf.Max(0f, 1f - f * f));
-            transform.rotation = Quaternion.LookRotation(forward, outward);
+            transform.rotation = Quaternion.LookRotation(forward, Vector3.up);
         }
     }
 }

@@ -152,7 +152,10 @@ namespace CylinderShooter.Enemies
             float heading = _heading * Mathf.Deg2Rad;
             Vector3 direction = -CylinderSpace.Tangent(_position.Angle) * Mathf.Cos(heading)
                 + Vector3.up * Mathf.Sin(heading);
-            transform.rotation = Quaternion.LookRotation(direction, CylinderSpace.Outward(_position.Angle));
+            // Side-on to the camera: the model's side faces outward, and its up stays in the
+            // screen plane, perpendicular to travel (pitches with the heading, never degenerate).
+            Vector3 up = Vector3.Cross(direction, CylinderSpace.Outward(_position.Angle));
+            transform.rotation = Quaternion.LookRotation(direction, up);
         }
     }
 }

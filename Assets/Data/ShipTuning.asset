@@ -23,5 +23,6 @@ MonoBehaviour:
   _boostThrustMultiplier: 2
   _boostDuration: 0.6
   _boostCooldown: 2
+  _boostRecoveryDeceleration: 30
   _maxBankAngle: 35
   _bankSmoothing: 10

@@ -68,7 +68,12 @@ namespace CylinderShooter.Combat
             transform.position = _position.ToWorld(_cylinderRadius);
             Vector3 dir = -CylinderSpace.Tangent(_position.Angle) * _velocity.x + Vector3.up * _velocity.y;
             if (dir.sqrMagnitude > 1e-6f)
-                transform.rotation = Quaternion.LookRotation(dir.normalized, CylinderSpace.Outward(_position.Angle));
+            {
+                Vector3 forward = dir.normalized;
+                // Side-on to the camera, matching the ship and enemies.
+                Vector3 up = Vector3.Cross(forward, CylinderSpace.Outward(_position.Angle));
+                transform.rotation = Quaternion.LookRotation(forward, up);
+            }
         }
 
         void Despawn()

@@ -93,7 +93,8 @@ namespace CylinderShooter.Enemies
         {
             transform.position = _position.ToWorld(_cylinder.Radius);
             Vector3 direction = CylinderSpace.Tangent(_position.Angle) * (_moveRight ? -1f : 1f);
-            transform.rotation = Quaternion.LookRotation(direction, CylinderSpace.Outward(_position.Angle));
+            // Side-on to the camera: model up = world up.
+            transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
         }
     }
 }
