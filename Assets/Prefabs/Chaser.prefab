@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1002}
   - component: {fileID: 1004}
   - component: {fileID: 5227014962827612262}
+  - component: {fileID: 362786494091661980}
   m_Layer: 0
   m_Name: Chaser
   m_TagString: Untagged
@@ -75,6 +76,20 @@ MonoBehaviour:
   _voxelData: {fileID: 4900000, guid: 7cd120f32c72f1c4ca7907afb9ba0a9f, type: 3}
   _model: {fileID: 8455237986034168131}
   _profile: {fileID: 11400000, guid: f56cfc1cd844abd47a2c44c2f6e11c61, type: 2}
+--- !u!114 &362786494091661980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3e20ac8b515c27448a9adbfec0f6269, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Runtime::CylinderShooter.Effects.PulseOnDestroyed
+  _profile: {fileID: 11400000, guid: 5beee0af3254b51418ad11ba0db078a5, type: 2}
+  _model: {fileID: 8455237986034168131}
 --- !u!1001 &8276968897732269736
 PrefabInstance:
   m_ObjectHideFlags: 0

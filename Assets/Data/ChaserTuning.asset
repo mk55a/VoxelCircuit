@@ -15,4 +15,4 @@ MonoBehaviour:
   _speed: 7
   _turnSpeed: 100
   _hitRadius: 1
-  _health: 2
+  _health: 1

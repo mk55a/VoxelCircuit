@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game.Runtime::CylinderShooter.Combat.WeaponTuning
   _shotsPerSecond: 12
   _bulletSpeed: 60
-  _bulletLifetime: 1.5
+  _bulletLifetime: 0.5
   _bulletHitRadius: 0.4
   _damage: 1
   _muzzleOffset: 1.5

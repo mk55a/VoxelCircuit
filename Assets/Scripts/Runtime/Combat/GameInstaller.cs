@@ -11,6 +11,8 @@ namespace CylinderShooter.Combat
         [SerializeField] private BulletPool _bulletPool;
         [Tooltip("Optional: shared voxel debris for destruction effects.")]
         [SerializeField] private VoxelDebris _debris;
+        [Tooltip("Optional: shared energy pulses for destruction effects.")]
+        [SerializeField] private PulseEmitter _pulses;
 
         TargetRegistry _targets;
         ContactHazardRegistry _hazards;
@@ -31,6 +33,7 @@ namespace CylinderShooter.Combat
                 _debris.Initialize(_cylinder);
                 ServiceLocator.Register<IDebrisEmitter>(_debris);
             }
+            if (_pulses != null) ServiceLocator.Register<IPulseEmitter>(_pulses);
         }
 
         void OnDestroy()
@@ -40,6 +43,7 @@ namespace CylinderShooter.Combat
             ServiceLocator.Unregister<IBulletPool>(_bulletPool);
             ServiceLocator.Unregister(_hazards);
             if (_debris != null) ServiceLocator.Unregister<IDebrisEmitter>(_debris);
+            if (_pulses != null) ServiceLocator.Unregister<IPulseEmitter>(_pulses);
         }
     }
 }
