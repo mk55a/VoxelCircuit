@@ -45,7 +45,7 @@ namespace CylinderShooter.Ship
                     continue;
                 }
                 hazard.DestroyOnContact();
-                if (!destroyed && _life.Status == PlayerStatus.Alive && _life.TryDestroy())
+                if (!destroyed && _life.Status == PlayerStatus.Alive && _life.TryDestroy(hazard.ContactPosition.Angle))
                 {
                     destroyed = true;
                 }

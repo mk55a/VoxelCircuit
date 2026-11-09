@@ -26,6 +26,7 @@ namespace CylinderShooter.Ship
         public float Height => Interpolated.Height;
         public float HorizontalVelocity => _motor.Velocity.x;
         public bool IsBoosting => _boost.IsActive;
+        public float BoostProgress => _boost.ActiveProgress;
         public float Facing => _facing.Value;
         public CylinderPosition Position => Interpolated;
         public float FacingSign => _facing.Value >= 0f ? 1f : -1f;

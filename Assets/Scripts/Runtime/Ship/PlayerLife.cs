@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CylinderShooter.Ship
 {
-    public sealed class PlayerLife : MonoBehaviour
+    public sealed class PlayerLife : MonoBehaviour, IDestructible
     {
         [SerializeField] private PlayerLifeTuning _tuning;
         [SerializeField] private ShipController _ship;
@@ -14,6 +14,9 @@ namespace CylinderShooter.Ship
 
         public event Action<int> OnLivesChanged;
         public event Action<PlayerStatus> OnStatusChanged;
+
+        /// <summary>Raised each time the ship loses a life (not on respawn).</summary>
+        public event Action<DestructionEvent> Destroyed;
 
         public int Lives => _state.Lives;
         public PlayerStatus Status => _state.Status;
@@ -41,7 +44,19 @@ namespace CylinderShooter.Ship
 
         public void AddLives(int count) => _state.AddLives(count);
         public void RemoveLives(int count) => _state.RemoveLives(count);
-        public bool TryDestroy() => _state.TryDestroy();
+        /// <summary>Destroys the ship with no known cause: effects burst evenly.</summary>
+        public bool TryDestroy() => TryDestroy(new DestructionEvent(_ship.Position));
+
+        /// <summary>Destroys the ship by something at <paramref name="instigatorAngle"/>: effects are pushed away from it.</summary>
+        public bool TryDestroy(float instigatorAngle) =>
+            TryDestroy(new DestructionEvent(_ship.Position, instigatorAngle));
+
+        private bool TryDestroy(DestructionEvent destruction)
+        {
+            if (!_state.TryDestroy()) return false;
+            Destroyed?.Invoke(destruction);
+            return true;
+        }
 
         private void HandleStatusChanged(PlayerStatus status)
         {

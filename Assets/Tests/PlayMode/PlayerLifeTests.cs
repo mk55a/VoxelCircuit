@@ -174,6 +174,47 @@ namespace CylinderShooter.Tests
             Assert.AreEqual(0f, _ship.HorizontalVelocity, 0.001f);
         }
 
+        [TestCase(0, 0f)]
+        [TestCase(1, 90f)]
+        [TestCase(2, 180f)]
+        public void BoostRoll_UsesConfiguredCountAndReturnsToBank(int rolls, float quarterAngle)
+        {
+            SetField(_shipTuning, "_boostRollCount", rolls);
+            SetField(_shipTuning, "_maxBankAngle", 0f);
+            var banking = _shipObject.AddComponent<ShipBanking>();
+            banking.enabled = false;
+            SetField(banking, "_ship", _ship);
+            SetField(banking, "_model", _visual.transform);
+            var boost = (BoostAbility)typeof(ShipController)
+                .GetField("_boost", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(_ship);
+            Assert.IsTrue(boost.TryActivate());
+            boost.Tick(_shipTuning.BoostDuration * 0.25f);
+            banking.SendMessage("LateUpdate");
+            Assert.Less(Quaternion.Angle(Quaternion.Euler(0f, 0f, quarterAngle), _visual.transform.localRotation), 0.01f);
+            boost.Tick(_shipTuning.BoostDuration);
+            banking.SendMessage("LateUpdate");
+            Assert.Less(Quaternion.Angle(Quaternion.identity, _visual.transform.localRotation), 0.01f);
+        }
+
+        [Test]
+        public void InterruptedBoost_RestoresModelBank()
+        {
+            SetField(_shipTuning, "_maxBankAngle", 0f);
+            var banking = _shipObject.AddComponent<ShipBanking>();
+            banking.enabled = false;
+            SetField(banking, "_ship", _ship);
+            SetField(banking, "_model", _visual.transform);
+            var boost = (BoostAbility)typeof(ShipController)
+                .GetField("_boost", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(_ship);
+            Assert.IsTrue(boost.TryActivate());
+            boost.Tick(_shipTuning.BoostDuration * 0.25f);
+            banking.SendMessage("LateUpdate");
+            Assert.Greater(Quaternion.Angle(Quaternion.identity, _visual.transform.localRotation), 80f);
+            _life.TryDestroy();
+            banking.SendMessage("LateUpdate");
+            Assert.Less(Quaternion.Angle(Quaternion.identity, _visual.transform.localRotation), 0.01f);
+        }
+
         [Test]
         public void DestroyedShip_CannotFire()
         {

@@ -14,7 +14,8 @@ namespace CylinderShooter.Ship
             var t = _ship.Tuning;
             float target = -_ship.NormalizedVelocity * t.MaxBankAngle * _ship.Facing;
             _bank = Mathf.Lerp(_bank, target, 1f - Mathf.Exp(-t.BankSmoothing * Time.deltaTime));
-            _model.localRotation = Quaternion.Euler(0f, 0f, _bank);
+            float boostRoll = 360f * t.BoostRollCount * _ship.BoostProgress;
+            _model.localRotation = Quaternion.Euler(0f, 0f, _bank + boostRoll);
         }
     }
 }

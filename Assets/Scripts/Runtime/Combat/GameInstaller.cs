@@ -1,4 +1,5 @@
 using CylinderShooter.Core;
+using CylinderShooter.Effects;
 using UnityEngine;
 
 namespace CylinderShooter.Combat
@@ -8,6 +9,8 @@ namespace CylinderShooter.Combat
     {
         [SerializeField] private CylinderConfig _cylinder;
         [SerializeField] private BulletPool _bulletPool;
+        [Tooltip("Optional: shared voxel debris for destruction effects.")]
+        [SerializeField] private VoxelDebris _debris;
 
         TargetRegistry _targets;
         ContactHazardRegistry _hazards;
@@ -22,6 +25,12 @@ namespace CylinderShooter.Combat
             ServiceLocator.Register<ITargetRegistry>(_targets);
             ServiceLocator.Register<IBulletPool>(_bulletPool);
             ServiceLocator.Register(_hazards);
+
+            if (_debris != null)
+            {
+                _debris.Initialize(_cylinder);
+                ServiceLocator.Register<IDebrisEmitter>(_debris);
+            }
         }
 
         void OnDestroy()
@@ -30,6 +39,7 @@ namespace CylinderShooter.Combat
             ServiceLocator.Unregister<ITargetRegistry>(_targets);
             ServiceLocator.Unregister<IBulletPool>(_bulletPool);
             ServiceLocator.Unregister(_hazards);
+            if (_debris != null) ServiceLocator.Unregister<IDebrisEmitter>(_debris);
         }
     }
 }

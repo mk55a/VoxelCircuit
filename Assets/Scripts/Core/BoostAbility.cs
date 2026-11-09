@@ -7,6 +7,7 @@ namespace CylinderShooter.Core
     {
         readonly IShipTuning _tuning;
         float _activeLeft;
+        float _activeDuration;
         float _cooldownLeft;
 
         public BoostAbility(IShipTuning tuning) => _tuning = tuning;
@@ -16,11 +17,15 @@ namespace CylinderShooter.Core
         public bool IsActive => _activeLeft > 0f;
         public bool IsReady => !IsActive && _cooldownLeft <= 0f;
         public float CooldownRemaining => _cooldownLeft;
+        public float ActiveProgress => IsActive && _activeDuration > 0f
+            ? Math.Max(0f, Math.Min(1f, 1f - _activeLeft / _activeDuration))
+            : 0f;
 
         public bool TryActivate()
         {
             if (!IsReady) return false;
-            _activeLeft = _tuning.BoostDuration;
+            _activeDuration = _tuning.BoostDuration;
+            _activeLeft = _activeDuration;
             OnActiveChanged?.Invoke(true);
             return true;
         }

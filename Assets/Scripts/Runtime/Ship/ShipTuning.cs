@@ -26,6 +26,8 @@ namespace CylinderShooter.Ship
         [Header("Visual")]
         [SerializeField] private float _maxBankAngle = 35f;
         [SerializeField] private float _bankSmoothing = 10f;
+        [Tooltip("Number of full model rolls during one boost. Set to zero to disable.")]
+        [SerializeField, Min(0)] private int _boostRollCount = 1;
 
         public float Thrust => _thrust;
         public float VerticalThrust => _verticalThrust;
@@ -41,5 +43,6 @@ namespace CylinderShooter.Ship
         public float BoostRecoveryDeceleration => _boostRecoveryDeceleration;
         public float MaxBankAngle => _maxBankAngle;
         public float BankSmoothing => _bankSmoothing;
+        public int BoostRollCount => Mathf.Max(0, _boostRollCount);
     }
 }

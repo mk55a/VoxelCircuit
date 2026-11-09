@@ -2884,7 +2884,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1528772537}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -3211,6 +3211,59 @@ Material:
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
+--- !u!1 &1608009212
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1608009214}
+  - component: {fileID: 1608009213}
+  m_Layer: 0
+  m_Name: Voxel Debris
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1608009213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1608009212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80f7705d28063b54fb73c3924bafa7c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Runtime::CylinderShooter.Effects.VoxelDebris
+  _material: {fileID: 0}
+  _mesh: {fileID: 0}
+  _maxParticles: 4000
+  _gravityMultiplier: 1.4
+  _drag: 0.6
+  _collideWithFloor: 1
+  _floorBelowPlayArea: 1
+  _bounce: 0.3
+  _bounceDamping: 0.4
+--- !u!4 &1608009214
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1608009212}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10.14047, y: -0, z: -27.43303}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!21 &1621450336
 Material:
   serializedVersion: 8
@@ -3420,6 +3473,9 @@ GameObject:
   - component: {fileID: 1702172657}
   - component: {fileID: 1702172656}
   - component: {fileID: 1702172659}
+  - component: {fileID: 1702172661}
+  - component: {fileID: 1702172660}
+  - component: {fileID: 1702172662}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -3473,7 +3529,7 @@ MonoBehaviour:
   _tuning: {fileID: 11400000, guid: f7e165e1f5653a744aa0fc4d25746d03, type: 2}
   _inputSource: {fileID: 1702172658}
   _startAngleDegrees: 0
-  _life: {fileID: 0}
+  _life: {fileID: 1702172661}
 --- !u!114 &1702172658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3501,7 +3557,52 @@ MonoBehaviour:
   _tuning: {fileID: 11400000, guid: 231faf214ca86d744a74eca2281bdea8, type: 2}
   _aimSource: {fileID: 1702172657}
   _fireInput: {fileID: 1702172658}
-  _life: {fileID: 0}
+  _life: {fileID: 1702172661}
+--- !u!114 &1702172660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702172654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50ab220bf7ee4639b2540760bd6108ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Runtime::CylinderShooter.Ship.PlayerContact
+  _ship: {fileID: 1702172657}
+  _life: {fileID: 1702172661}
+  _cylinder: {fileID: 11400000, guid: 859b81947f6772a44a793ffbad4c7923, type: 2}
+--- !u!114 &1702172661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702172654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b423b7ef0244cb6a67d2cf0a73c60a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Runtime::CylinderShooter.Ship.PlayerLife
+  _tuning: {fileID: 11400000, guid: 46c685b78c734d5b94335565d2daa8b8, type: 2}
+  _ship: {fileID: 1702172657}
+  _visual: {fileID: 1129150475}
+--- !u!114 &1702172662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702172654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e3664c575792ef4396483f0a3ae62a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Runtime::CylinderShooter.Effects.ShatterOnDestroyed
+  _voxelData: {fileID: 4900000, guid: 9464459ebc3a91e4e91cd07eeb96755d, type: 3}
+  _model: {fileID: 849742538}
+  _profile: {fileID: 11400000, guid: 460aeb0f77c2fe943a32844b08b9f1b9, type: 2}
 --- !u!1 &1867608647
 GameObject:
   m_ObjectHideFlags: 0
@@ -3944,6 +4045,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game.Runtime::CylinderShooter.Combat.GameInstaller
   _cylinder: {fileID: 11400000, guid: 859b81947f6772a44a793ffbad4c7923, type: 2}
   _bulletPool: {fileID: 1087896614}
+  _debris: {fileID: 1608009213}
 --- !u!4 &1945493274
 Transform:
   m_ObjectHideFlags: 0
@@ -4203,3 +4305,4 @@ SceneRoots:
   - {fileID: 714063245}
   - {fileID: 1954069916}
   - {fileID: 1671614101}
+  - {fileID: 1608009214}

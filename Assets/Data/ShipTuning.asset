@@ -26,3 +26,4 @@ MonoBehaviour:
   _boostRecoveryDeceleration: 30
   _maxBankAngle: 35
   _bankSmoothing: 10
+  _boostRollCount: 1

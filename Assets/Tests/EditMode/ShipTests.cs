@@ -107,5 +107,25 @@ namespace CylinderShooter.Tests
             boost.Interrupt();
             Assert.AreEqual(1.5f, boost.CooldownRemaining, 0.0001f);
         }
+
+        [Test]
+        public void Boost_ProgressTracksActiveDurationAndResets()
+        {
+            var boost = new BoostAbility(new Tuning());
+            Assert.AreEqual(0f, boost.ActiveProgress);
+            Assert.IsTrue(boost.TryActivate());
+            boost.Tick(0.125f);
+            Assert.AreEqual(0.25f, boost.ActiveProgress, 0.0001f);
+            boost.Tick(0.125f);
+            Assert.AreEqual(0.5f, boost.ActiveProgress, 0.0001f);
+            boost.Tick(0.25f);
+            Assert.IsFalse(boost.IsActive);
+            Assert.AreEqual(0f, boost.ActiveProgress);
+            boost.Tick(2f);
+            Assert.IsTrue(boost.TryActivate());
+            boost.Tick(0.125f);
+            boost.Interrupt();
+            Assert.AreEqual(0f, boost.ActiveProgress);
+        }
     }
 }

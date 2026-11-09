@@ -1,9 +1,10 @@
+using System;
 using CylinderShooter.Core;
 using UnityEngine;
 
 namespace CylinderShooter.Enemies
 {
-    public sealed class Drifter : MonoBehaviour, IDamageable, IContactHazard
+    public sealed class Drifter : MonoBehaviour, IDamageable, IContactHazard, IDestructible
     {
         [Header("Configuration")]
         [SerializeField] private DrifterTuning _tuning;
@@ -17,6 +18,9 @@ namespace CylinderShooter.Enemies
         private ContactHazardRegistry _hazards;
 
         public bool IsAlive { get; private set; }
+
+        /// <summary>Shot down or crashed into the player; not raised when cleared or returned to a pool.</summary>
+        public event Action<DestructionEvent> Destroyed;
         public Vector3 Position => transform.position;
         public float Radius => _tuning.HitRadius;
         public CylinderPosition PreviousContactPosition { get; private set; }
@@ -78,15 +82,22 @@ namespace CylinderShooter.Enemies
                 return;
             }
 
-            gameObject.SetActive(false);
+            DestroyInPlay();
         }
 
         public void DestroyOnContact()
         {
             if (IsAlive)
             {
-                gameObject.SetActive(false);
+                DestroyInPlay();
             }
+        }
+
+        private void DestroyInPlay()
+        {
+            // Drifters don't track the player, so their debris bursts evenly.
+            Destroyed?.Invoke(new DestructionEvent(_position));
+            gameObject.SetActive(false);
         }
 
         private void ApplyPosition()

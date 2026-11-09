@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace CylinderShooter.Enemies
 {
-    public sealed class Chaser : MonoBehaviour, IDamageable, IContactHazard
+    public sealed class Chaser : MonoBehaviour, IDamageable, IContactHazard, IDestructible
     {
         [Header("Configuration")]
         [SerializeField] private ChaserTuning _tuning;
@@ -35,6 +35,9 @@ namespace CylinderShooter.Enemies
         public CylinderPosition PreviousContactPosition { get; private set; }
         public CylinderPosition ContactPosition => _position;
         public bool IsInFormation => _formation != null;
+
+        /// <summary>Shot down or crashed into the player; not raised when cleared or returned to a pool.</summary>
+        public event Action<DestructionEvent> Destroyed;
 
         public void PrepareSpawn(ShipController target, FormationMotion formation, int slot,
             Action<Chaser> onReturned)
@@ -134,7 +137,7 @@ namespace CylinderShooter.Enemies
             _health -= damage;
             if (_health <= 0)
             {
-                gameObject.SetActive(false);
+                DestroyInPlay();
             }
         }
 
@@ -142,8 +145,17 @@ namespace CylinderShooter.Enemies
         {
             if (IsAlive)
             {
-                gameObject.SetActive(false);
+                DestroyInPlay();
             }
+        }
+
+        private void DestroyInPlay()
+        {
+            // The ship is the instigator: effects are pushed away from it.
+            Destroyed?.Invoke(_target != null
+                ? new DestructionEvent(_position, _target.Angle)
+                : new DestructionEvent(_position));
+            gameObject.SetActive(false);
         }
 
         private void ApplyPosition()
