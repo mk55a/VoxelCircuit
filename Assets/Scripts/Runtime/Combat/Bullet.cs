@@ -18,7 +18,7 @@ namespace CylinderShooter.Combat
         bool _active;
 
         [SerializeField] private TrailRenderer _trail; 
-
+        
         public void Initialize(float cylinderRadius, ITargetRegistry targets, Action<Bullet> release)
         {
             _cylinderRadius = cylinderRadius;
@@ -47,19 +47,20 @@ namespace CylinderShooter.Combat
             _lifeLeft -= dt;
             if (_lifeLeft <= 0f) { Despawn(); return; }
 
+            Vector3 previous = transform.position;
             _position = _position.Moved(-_velocity.x * dt / _cylinderRadius, _velocity.y * dt);
             ApplyTransform();
-            TestHits();
+
+            TestHits(previous, transform.position);
         }
 
-        void TestHits()
+        void TestHits(Vector3 from, Vector3 to)
         {
             var targets = _targets.Targets;
-            Vector3 p = transform.position;
             for (int i = 0; i < targets.Count; i++)
             {
                 var target = targets[i];
-                if (!target.IsAlive || !Overlap.Spheres(p, _hitRadius, target.Position, target.Radius)) continue;
+                if (!target.IsAlive || !Overlap.SegmentSphere(from, to, _hitRadius, target.Position, target.Radius)) continue;
                 target.TakeHit(_damage);
                 Despawn();
                 return;
@@ -78,7 +79,7 @@ namespace CylinderShooter.Combat
                 transform.rotation = Quaternion.LookRotation(forward, up);
             }
         }
-
+        
         void Despawn()
         {
             _active = false;

@@ -75,5 +75,41 @@ namespace CylinderShooter.Tests
             ServiceLocator.Unregister<IFoo>(foo);
             Assert.IsFalse(ServiceLocator.TryGet<IFoo>(out _));
         }
+        
+        [Test]
+        public void SegmentSphere_PathThroughTarget_HitsEvenWhenEndsDoNot()
+        {
+            var start = new Vector3(-5f, 0f, 0f);
+            var end = new Vector3(5f, 0f, 0f);
+
+            Assert.IsFalse(Overlap.Spheres(start, 0.4f, Vector3.zero, 1f));
+            Assert.IsFalse(Overlap.Spheres(end, 0.4f, Vector3.zero, 1f));
+            Assert.IsTrue(Overlap.SegmentSphere(start, end, 0.4f, Vector3.zero, 1f));
+        }
+
+        [Test]
+        public void SegmentSphere_PathPassingWide_Misses()
+        {
+            var start = new Vector3(-5f, 2f, 0f);   // 2 m above the target; the radii add up to only 1.4
+            var end = new Vector3(5f, 2f, 0f);
+            Assert.IsFalse(Overlap.SegmentSphere(start, end, 0.4f, Vector3.zero, 1f));
+        }
+
+        [Test]
+        public void SegmentSphere_TargetBeyondEnd_Misses()
+        {
+            // The path stops 3 m short of the target: clamping t keeps it from "reaching" further.
+            var start = new Vector3(-5f, 0f, 0f);
+            var end = new Vector3(-3f, 0f, 0f);
+            Assert.IsFalse(Overlap.SegmentSphere(start, end, 0.4f, Vector3.zero, 1f));
+        }
+
+        [Test]
+        public void SegmentSphere_ZeroLengthPath_MatchesSphereCheck()
+        {
+            var p = new Vector3(1f, 0f, 0f);
+            Assert.AreEqual(Overlap.Spheres(p, 0.4f, Vector3.zero, 1f),
+                Overlap.SegmentSphere(p, p, 0.4f, Vector3.zero, 1f));
+        }
     }
 }
