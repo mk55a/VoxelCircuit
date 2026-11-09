@@ -17,6 +17,8 @@ namespace CylinderShooter.Combat
         int _damage;
         bool _active;
 
+        [SerializeField] private TrailRenderer _trail; 
+
         public void Initialize(float cylinderRadius, ITargetRegistry targets, Action<Bullet> release)
         {
             _cylinderRadius = cylinderRadius;
@@ -34,6 +36,7 @@ namespace CylinderShooter.Combat
             _damage = damage;
             _active = true;
             ApplyTransform();
+            if (_trail != null) _trail.Clear();  
         }
 
         void Update()
