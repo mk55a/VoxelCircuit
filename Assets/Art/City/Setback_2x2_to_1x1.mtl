@@ -1,0 +1,3 @@
+newmtl City
+Kd 1 1 1
+map_Kd City_Palette.png

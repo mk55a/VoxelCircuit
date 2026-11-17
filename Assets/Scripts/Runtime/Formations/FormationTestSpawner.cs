@@ -22,6 +22,9 @@ namespace CylinderShooter.Formations
         [SerializeField, Min(1)] private int _maxEnemies = 150;
         [SerializeField, Min(0)] private int _prewarm = 25;
         [SerializeField, Min(0f)] private float _viewportMargin = 0.02f;
+        [Tooltip("Points at least this far from the camera count as hidden (e.g. faded out by fog behind a glass " +
+                 "arena). 0 = off: only off-screen points or points behind an opaque arena count as hidden.")]
+        [SerializeField, Min(0f)] private float _hiddenBeyondDistance;
 
         private readonly Stack<Chaser> _available = new Stack<Chaser>();
         private readonly HashSet<Chaser> _active = new HashSet<Chaser>();
@@ -185,7 +188,7 @@ namespace CylinderShooter.Formations
                     }
                     float envelope = extent + _formation.WaveAmplitude;
                     bool outside = true;
-                    bool hidden = canOcclude;
+                    bool hidden = canOcclude || _hiddenBeyondDistance > 0f;
                     for (int corner = 0; corner < 8; corner++)
                     {
                         Vector3 point = world + new Vector3((corner & 1) == 0 ? -extent : extent,
@@ -196,8 +199,7 @@ namespace CylinderShooter.Formations
                             (side < 0 ? viewport.x > -_viewportMargin : viewport.x < 1f + _viewportMargin))
                             outside = false;
                         Vector3 ray = point - _camera.transform.position;
-                        if (hidden && !_occlusionProbe.Raycast(new Ray(_camera.transform.position, ray.normalized),
-                            out _, ray.magnitude - 0.01f))
+                        if (hidden && !IsHidden(ray, canOcclude))
                             hidden = false;
                     }
                     fits = outside || hidden;
@@ -212,6 +214,15 @@ namespace CylinderShooter.Formations
             if (canOcclude) _occlusionProbe.enabled = false;
             result = null;
             return false;
+        }
+
+        /// <summary>A point is hidden if it is far enough away, or if the opaque arena blocks the camera's view of it.</summary>
+        private bool IsHidden(Vector3 cameraToPoint, bool canOcclude)
+        {
+            float distance = cameraToPoint.magnitude;
+            if (_hiddenBeyondDistance > 0f && distance >= _hiddenBeyondDistance) return true;
+            return canOcclude && _occlusionProbe.Raycast(
+                new Ray(_camera.transform.position, cameraToPoint / distance), out _, distance - 0.01f);
         }
 
         private bool PrepareOcclusionProbe()
