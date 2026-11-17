@@ -28,12 +28,25 @@ namespace CylinderShooter.Tests
                     Assert.IsTrue(PrefabUtility.IsPartOfPrefabInstance(chaser));
                     Assert.AreSame(ship, new SerializedObject(chaser).FindProperty("_target").objectReferenceValue);
                 }
+
             }
             finally
             {
                 Object.DestroyImmediate(root);
                 Object.DestroyImmediate(shipObject);
             }
+        }
+
+        [Test]
+        public void ChaserPrefab_HasSpinWiredToVisualChild()
+        {
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Chaser.prefab");
+            var spin = prefab.GetComponent<ChaserVisualSpin>();
+            Assert.IsNotNull(spin);
+            var model = new SerializedObject(spin).FindProperty("_model").objectReferenceValue as Transform;
+            Assert.IsNotNull(model);
+            Assert.AreNotSame(prefab.transform, model);
+            Assert.IsTrue(model.IsChildOf(prefab.transform));
         }
     }
 }

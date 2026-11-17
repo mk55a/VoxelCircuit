@@ -116,6 +116,37 @@ namespace CylinderShooter.Tests
         }
 
         [UnityTest]
+        public IEnumerator VisualSpin_RotatesOnlyModelAndResetsWhenReused()
+        {
+            _chaserObject.SetActive(false);
+            var model = new GameObject("Model").transform;
+            model.SetParent(_chaserObject.transform, false);
+            var baseRotation = Quaternion.Euler(10f, 20f, 30f);
+            model.localRotation = baseRotation;
+            var spin = _chaserObject.AddComponent<ChaserVisualSpin>();
+            SetField(spin, "_model", model);
+            SetField(spin, "_degreesPerSecond", 90f);
+            SetField(spin, "_speedVariation", 0f);
+            SetField(_tuning, "_speed", 0f);
+            SetField(_tuning, "_turnSpeed", 0f);
+            _chaserObject.SetActive(true);
+
+            Quaternion initialModel = model.localRotation;
+            Quaternion initialRoot = _chaserObject.transform.rotation;
+            yield return new WaitForSeconds(0.1f);
+            Assert.Greater(Quaternion.Angle(initialModel, model.localRotation), 1f);
+            Assert.Less(Quaternion.Angle(initialRoot, _chaserObject.transform.rotation), 0.01f);
+            Assert.AreEqual(1, _hazards.Hazards.Count);
+
+            _chaserObject.SetActive(false);
+            Assert.Less(Quaternion.Angle(baseRotation, model.localRotation), 0.01f);
+            SetField(spin, "_degreesPerSecond", 0f);
+            _chaserObject.SetActive(true);
+            yield return null;
+            Assert.Less(Quaternion.Angle(baseRotation, model.localRotation), 0.01f);
+        }
+
+        [UnityTest]
         public IEnumerator Chaser_AtUpperEdgeContinuesWithoutBouncing()
         {
             return CheckEdgeWithoutBounce(1f);
