@@ -18,9 +18,13 @@ Where it started: a greybox prototype with the ship controller, the wrap-around 
 
 ![Greybox prototype: placeholder ship flying around the cylinder arena with the first Chasers](Docs/Media/progress-1-greybox.gif)
 
-Where it is now: the Kestrel player ship, a formation of 25 Chasers moving in a wave, and voxel destruction. Each kill gives a short cyan pulse, and the enemy's own cubes are thrown away from the player and fall to the floor.
+Then: the Kestrel player ship, a formation of 25 Chasers moving in a wave, and voxel destruction. Each kill gives a short cyan pulse, and the enemy's own cubes are thrown away from the player and fall to the floor.
 
-![Current build: the Kestrel shoots through a wave formation of magenta Chasers that break into voxel debris](Docs/Media/progress-2-voxel-destruction.gif)
+![Voxel destruction: the Kestrel shoots through a wave formation of magenta Chasers that break into voxel debris](Docs/Media/progress-2-voxel-destruction.gif)
+
+Currently working on the look and aesthetics of the game. Update 1:
+
+![Look and aesthetics, update 1](Docs/Media/progress-3-city.gif)
 
 ## What's in it so far
 
