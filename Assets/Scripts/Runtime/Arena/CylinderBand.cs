@@ -45,6 +45,9 @@ namespace CylinderShooter.Arena
         [SerializeField, Min(0f)] private float _tileHeight;
         [Tooltip("Longest straight segment, in metres. Smaller is smoother; 1 m is invisible at radius 60.")]
         [SerializeField, Min(0.05f)] private float _maxSegmentLength = 1f;
+        [Tooltip("Wall only: face the cylinder's axis instead of outward. Use for rings seen from inside, " +
+                 "e.g. a far cloud ring around the whole arena.")]
+        [SerializeField] private bool _faceInward;
 
         private Mesh _mesh;
         private bool _dirty = true;
@@ -84,7 +87,8 @@ namespace CylinderShooter.Arena
             float start = _startAngleDegrees * Mathf.Deg2Rad;
             float arc = _arcDegrees * Mathf.Deg2Rad;
             var data = _shape == CylinderBandShape.Wall
-                ? CylinderMeshBuilder.Wall(radius, _bottom, _top, start, arc, _tileWidth, _tileHeight, _maxSegmentLength)
+                ? CylinderMeshBuilder.Wall(radius, _bottom, _top, start, arc, _tileWidth, _tileHeight, _maxSegmentLength,
+                    !_faceInward)
                 : CylinderMeshBuilder.Ring(radius, radius + _ringWidth, _bottom, start, arc, _tileWidth, _tileHeight,
                     _maxSegmentLength);
 
