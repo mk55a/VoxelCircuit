@@ -26,6 +26,10 @@ Currently working on the look and aesthetics of the game. Update 1:
 
 ![Look and aesthetics, update 1](Docs/Media/progress-3-city.gif)
 
+![Look and aesthetics, update 2](Docs/Media/progress-4-look-update-2.gif)
+
+![The shockwave clearing a formation](Docs/Media/progress-5-shockwave.gif)
+
 ## What's in it so far
 
 ### Movement and feel
@@ -80,7 +84,7 @@ A 10-minute survival mode, where a spawn director sends enemies in waves of risi
 2. Open it with Unity 6000.3.26f1 or a newer Unity 6 version.
 3. Open a scene in `Assets/Scenes` and press Play.
 
-Controls: WASD or arrow keys to move, Space to boost, J or left mouse to fire. Gamepad is supported.
+Controls: WASD or arrow keys to move, Space to boost. Left mouse (or J) fires left, right mouse (or L) fires right, whichever way the ship is facing. Gamepad: left stick, A to boost, left and right triggers to fire.
 
 ### Generating a city
 
