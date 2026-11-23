@@ -151,7 +151,7 @@ namespace CylinderShooter.Tests
         [Test]
         public void Prefab_HasTuningAndVisibleMesh()
         {
-            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Chaser.prefab");
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Enemies/Chaser.prefab");
             Assert.IsNotNull(prefab);
             var chaser = prefab.GetComponent<Chaser>();
             Assert.IsNotNull(chaser);

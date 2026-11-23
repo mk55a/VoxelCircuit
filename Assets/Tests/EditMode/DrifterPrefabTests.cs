@@ -10,7 +10,7 @@ namespace CylinderShooter.Tests
         [Test]
         public void Prefab_HasTuningAndVisibleModel()
         {
-            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Drifter.prefab");
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Enemies/Drifter.prefab");
             Assert.IsNotNull(prefab);
             var drifter = prefab.GetComponent<Drifter>();
             Assert.IsNotNull(drifter);

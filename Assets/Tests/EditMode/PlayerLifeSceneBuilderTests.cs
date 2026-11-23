@@ -63,9 +63,9 @@ namespace CylinderShooter.Tests
         [Test]
         public void SavedSceneAndAssets_PreserveRenamedFields()
         {
-            var cylinder = AssetDatabase.LoadAssetAtPath<CylinderConfig>("Assets/Data/CylinderConfig.asset");
-            var shipTuning = AssetDatabase.LoadAssetAtPath<ShipTuning>("Assets/Data/ShipTuning.asset");
-            var weaponTuning = AssetDatabase.LoadAssetAtPath<WeaponTuning>("Assets/Data/WeaponTuning.asset");
+            var cylinder = AssetDatabase.LoadAssetAtPath<CylinderConfig>("Assets/Tuning/World/CylinderConfig.asset");
+            var shipTuning = AssetDatabase.LoadAssetAtPath<ShipTuning>("Assets/Tuning/Player/ShipTuning.asset");
+            var weaponTuning = AssetDatabase.LoadAssetAtPath<WeaponTuning>("Assets/Tuning/Player/WeaponTuning.asset");
             Assert.AreEqual(60f, cylinder.Radius);
             Assert.AreEqual(-6f, cylinder.MinHeight);
             Assert.AreEqual(6f, cylinder.MaxHeight);

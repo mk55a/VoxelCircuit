@@ -17,8 +17,8 @@ namespace CylinderShooter.Tests
             try
             {
                 var ship = shipObject.AddComponent<ShipController>();
-                var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Chaser.prefab");
-                var cylinder = AssetDatabase.LoadAssetAtPath<CylinderConfig>("Assets/Data/CylinderConfig.asset");
+                var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Enemies/Chaser.prefab");
+                var cylinder = AssetDatabase.LoadAssetAtPath<CylinderConfig>("Assets/Tuning/World/CylinderConfig.asset");
                 root = ChaserSceneBuilder.CreateChasers(prefab, ship, cylinder);
                 var chasers = root.GetComponentsInChildren<Chaser>();
 
@@ -40,7 +40,7 @@ namespace CylinderShooter.Tests
         [Test]
         public void ChaserPrefab_HasSpinWiredToVisualChild()
         {
-            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Chaser.prefab");
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Enemies/Chaser.prefab");
             var spin = prefab.GetComponent<ChaserVisualSpin>();
             Assert.IsNotNull(spin);
             var model = new SerializedObject(spin).FindProperty("_model").objectReferenceValue as Transform;

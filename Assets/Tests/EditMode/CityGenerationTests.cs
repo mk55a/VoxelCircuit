@@ -212,7 +212,7 @@ namespace CylinderShooter.Tests
                 var so = new SerializedObject(generator);
                 so.FindProperty("_plane").objectReferenceValue = plane.GetComponent<MeshFilter>();
                 so.FindProperty("_cylinder").objectReferenceValue =
-                    AssetDatabase.LoadAssetAtPath<CylinderConfig>("Assets/Data/CylinderConfig.asset");
+                    AssetDatabase.LoadAssetAtPath<CylinderConfig>("Assets/Tuning/World/CylinderConfig.asset");
                 var guids = AssetDatabase.FindAssets("t:Prefab", new[] { "Assets/Art/City/Prefabs" });
                 Assert.Greater(guids.Length, 0);
                 var list = so.FindProperty("_buildingPrefabs");
