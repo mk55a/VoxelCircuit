@@ -13,6 +13,8 @@ namespace CylinderShooter.Combat
         [SerializeField] private VoxelDebris _debris;
         [Tooltip("Optional: shared energy pulses for destruction effects.")]
         [SerializeField] private PulseEmitter _pulses;
+        [Tooltip("Optional: the scene's shockwave (the player's special move).")]
+        [SerializeField] private ShockwaveEmitter _shockwave;
 
         TargetRegistry _targets;
         ContactHazardRegistry _hazards;
@@ -34,6 +36,7 @@ namespace CylinderShooter.Combat
                 ServiceLocator.Register<IDebrisEmitter>(_debris);
             }
             if (_pulses != null) ServiceLocator.Register<IPulseEmitter>(_pulses);
+            if (_shockwave != null) ServiceLocator.Register<IShockwaveEmitter>(_shockwave);
         }
 
         void OnDestroy()
@@ -44,6 +47,7 @@ namespace CylinderShooter.Combat
             ServiceLocator.Unregister(_hazards);
             if (_debris != null) ServiceLocator.Unregister<IDebrisEmitter>(_debris);
             if (_pulses != null) ServiceLocator.Unregister<IPulseEmitter>(_pulses);
+            if (_shockwave != null) ServiceLocator.Unregister<IShockwaveEmitter>(_shockwave);
         }
     }
 }

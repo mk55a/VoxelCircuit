@@ -2,6 +2,8 @@
     "name": "Game.Rendering",
     "rootNamespace": "CylinderShooter",
     "references": [
+        "Game.Core",
+        "Game.Runtime",
         "Unity.RenderPipelines.Core.Runtime",
         "Unity.RenderPipelines.Universal.Runtime"
     ],

@@ -1,17 +1,28 @@
 using CylinderShooter.Combat;
+using CylinderShooter.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace CylinderShooter.Ship
 {
-    public sealed class InputSystemShipInput : MonoBehaviour, IShipInput, IFireInput
+    /// <summary>
+    /// Keyboard, mouse and gamepad input. Firing is two-sided: left mouse / J / left trigger fires screen-left,
+    /// right mouse / L / right trigger fires screen-right, one side at a time. Shockwave: K / E / middle mouse /
+    /// gamepad Y. Runs before the ship and weapons.
+    /// </summary>
+    [DefaultExecutionOrder(-100)]
+    public sealed class InputSystemShipInput : MonoBehaviour, IShipInput, IFireInput, IShockwaveInput
     {
+        readonly FireSideSelector _fireSide = new FireSideSelector();
         InputAction _move;
         InputAction _boost;
-        InputAction _fire;
+        InputAction _fireLeft;
+        InputAction _fireRight;
+        InputAction _shockwave;
         bool _boostQueued;
+        bool _shockwaveQueued;
 
-        public bool FireHeld => _fire.IsPressed();
+        public int FireDirection => _fireSide.Current;
 
         public Vector2 Move => Vector2.ClampMagnitude(_move.ReadValue<Vector2>(), 1f);
 
@@ -19,6 +30,13 @@ namespace CylinderShooter.Ship
         {
             bool pressed = _boostQueued;
             _boostQueued = false;
+            return pressed;
+        }
+
+        public bool ConsumeShockwave()
+        {
+            bool pressed = _shockwaveQueued;
+            _shockwaveQueued = false;
             return pressed;
         }
 
@@ -38,15 +56,32 @@ namespace CylinderShooter.Ship
             _boost.AddBinding("<Gamepad>/buttonSouth");
             _boost.performed += _ => _boostQueued = true;
 
-            _fire = new InputAction("Fire", InputActionType.Button);
-            _fire.AddBinding("<Keyboard>/j");
-            _fire.AddBinding("<Mouse>/leftButton");
-            _fire.AddBinding("<Gamepad>/rightTrigger");
-            _fire.AddBinding("<Gamepad>/buttonWest");
+            _fireLeft = new InputAction("Fire Left", InputActionType.Button);
+            _fireLeft.AddBinding("<Mouse>/leftButton");
+            _fireLeft.AddBinding("<Keyboard>/j");
+            _fireLeft.AddBinding("<Gamepad>/leftTrigger");
+
+            _fireRight = new InputAction("Fire Right", InputActionType.Button);
+            _fireRight.AddBinding("<Mouse>/rightButton");
+            _fireRight.AddBinding("<Keyboard>/l");
+            _fireRight.AddBinding("<Gamepad>/rightTrigger");
+
+            _shockwave = new InputAction("Shockwave", InputActionType.Button);
+            _shockwave.AddBinding("<Keyboard>/k");
+            _shockwave.AddBinding("<Keyboard>/e");
+            _shockwave.AddBinding("<Mouse>/middleButton");
+            _shockwave.AddBinding("<Gamepad>/buttonNorth");
+            _shockwave.performed += _ => _shockwaveQueued = true;
         }
 
-        void OnEnable() { _move.Enable(); _boost.Enable(); _fire.Enable(); }
-        void OnDisable() { _move.Disable(); _boost.Disable(); _fire.Disable(); }
-        void OnDestroy() { _move.Dispose(); _boost.Dispose(); _fire.Dispose(); }
+        void Update() => _fireSide.Update(_fireLeft.IsPressed(), _fireRight.IsPressed());
+
+        void OnEnable() { _move.Enable(); _boost.Enable(); _fireLeft.Enable(); _fireRight.Enable(); _shockwave.Enable(); }
+        void OnDisable()
+        {
+            _move.Disable(); _boost.Disable(); _fireLeft.Disable(); _fireRight.Disable(); _shockwave.Disable();
+            _fireSide.Reset();
+        }
+        void OnDestroy() { _move.Dispose(); _boost.Dispose(); _fireLeft.Dispose(); _fireRight.Dispose(); _shockwave.Dispose(); }
     }
 }

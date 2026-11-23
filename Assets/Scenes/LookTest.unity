@@ -6834,6 +6834,55 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 186682232}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &202083053
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 202083055}
+  - component: {fileID: 202083054}
+  m_Layer: 0
+  m_Name: Shockwave release
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &202083054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202083053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.Volume
+  m_IsGlobal: 1
+  priority: 10
+  blendDistance: 0
+  weight: 0
+  sharedProfile: {fileID: 11400000, guid: ceee238222510ea4c94a2d4d8619914b, type: 2}
+--- !u!4 &202083055
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202083053}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.85134, y: -0.05, z: -59.28798}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &203116892
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8031,6 +8080,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1048928599197788861, guid: 9c3d2894351d31441bef3f6eeca8a29a, type: 3}
   m_PrefabInstance: {fileID: 830133619}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &383936120 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 316974913227271476, guid: fe21830f4d2a56a4f96b5833db52a2b2, type: 3}
+  m_PrefabInstance: {fileID: 5528017599640338003}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &388288734
 PrefabInstance:
@@ -10411,6 +10465,55 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9337b05507a6584da65c6649f6157f0, type: 3}
+--- !u!1 &800689862
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 800689864}
+  - component: {fileID: 800689863}
+  m_Layer: 0
+  m_Name: Shockwave charge
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &800689863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800689862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.Volume
+  m_IsGlobal: 1
+  priority: 10
+  blendDistance: 0
+  weight: 0
+  sharedProfile: {fileID: 11400000, guid: 3d9071dcc833f0741b8dab9bba5b443e, type: 2}
+--- !u!4 &800689864
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800689862}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.85134, y: -0.05, z: -59.28798}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &811896855
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13207,6 +13310,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bee209948e45b545a2d87c4dfc9ddd6, type: 3}
+--- !u!1 &1329838460 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7931878806993958620, guid: 580f038d674e8644ebe99f68cc1af0a7, type: 3}
+  m_PrefabInstance: {fileID: 8836186590091658124}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1338986844
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20546,12 +20654,50 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 740350869597393551, guid: fe21830f4d2a56a4f96b5833db52a2b2, type: 3}
   m_PrefabInstance: {fileID: 5528017599640338003}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 383936120}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e32925a5c0f16540ba1825de27691c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Runtime::CylinderShooter.Ship.ShipController
+--- !u!114 &1702172660 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6572772704716723044, guid: fe21830f4d2a56a4f96b5833db52a2b2, type: 3}
+  m_PrefabInstance: {fileID: 5528017599640338003}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383936120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b423b7ef0244cb6a67d2cf0a73c60a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Runtime::CylinderShooter.Ship.PlayerLife
+--- !u!114 &1702172663 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6023782094239867948, guid: fe21830f4d2a56a4f96b5833db52a2b2, type: 3}
+  m_PrefabInstance: {fileID: 5528017599640338003}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383936120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e167cd30984555449f008e94e5d8086, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Runtime::CylinderShooter.Ship.InputSystemShipInput
+--- !u!114 &1702172664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383936120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f5ef9c676f7d1e4fb1140cb02d724da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Runtime::CylinderShooter.Ship.PlayerShockwave
+  _ship: {fileID: 1702172657}
+  _input: {fileID: 1702172663}
+  _life: {fileID: 1702172660}
+  _invulnerableSeconds: 0.6
 --- !u!1001 &1713434302
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22158,6 +22304,7 @@ MonoBehaviour:
   _bulletPool: {fileID: 1087896614}
   _debris: {fileID: 1608009213}
   _pulses: {fileID: 88327613}
+  _shockwave: {fileID: 8836186590091658125}
 --- !u!4 &1945493274
 Transform:
   m_ObjectHideFlags: 0
@@ -27740,8 +27887,166 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 316974913227271476, guid: fe21830f4d2a56a4f96b5833db52a2b2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1702172664}
   m_SourcePrefab: {fileID: 100100000, guid: fe21830f4d2a56a4f96b5833db52a2b2, type: 3}
+--- !u!1001 &8836186590091658124
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7931878806993958620, guid: 580f038d674e8644ebe99f68cc1af0a7, type: 3}
+      propertyPath: m_Name
+      value: Shockwave
+      objectReference: {fileID: 0}
+    - target: {fileID: 9046810110655095363, guid: 580f038d674e8644ebe99f68cc1af0a7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.35134
+      objectReference: {fileID: 0}
+    - target: {fileID: 9046810110655095363, guid: 580f038d674e8644ebe99f68cc1af0a7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 9046810110655095363, guid: 580f038d674e8644ebe99f68cc1af0a7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -59.28798
+      objectReference: {fileID: 0}
+    - target: {fileID: 9046810110655095363, guid: 580f038d674e8644ebe99f68cc1af0a7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9046810110655095363, guid: 580f038d674e8644ebe99f68cc1af0a7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9046810110655095363, guid: 580f038d674e8644ebe99f68cc1af0a7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9046810110655095363, guid: 580f038d674e8644ebe99f68cc1af0a7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9046810110655095363, guid: 580f038d674e8644ebe99f68cc1af0a7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9046810110655095363, guid: 580f038d674e8644ebe99f68cc1af0a7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9046810110655095363, guid: 580f038d674e8644ebe99f68cc1af0a7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7931878806993958620, guid: 580f038d674e8644ebe99f68cc1af0a7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8836186590091658127}
+  m_SourcePrefab: {fileID: 100100000, guid: 580f038d674e8644ebe99f68cc1af0a7, type: 3}
+--- !u!114 &8836186590091658125 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7452415812727186069, guid: 580f038d674e8644ebe99f68cc1af0a7, type: 3}
+  m_PrefabInstance: {fileID: 8836186590091658124}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329838460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 705031e1ddc33a341ae564735dc84867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Runtime::CylinderShooter.Combat.ShockwaveEmitter
+--- !u!114 &8836186590091658127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329838460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3330aea2b406cd438f027f4f1db605d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Rendering::CylinderShooter.Rendering.Shockwave.ShockwaveScreenEffects
+  _camera: {fileID: 330585547}
+  _cues:
+  - Volume: {fileID: 800689863}
+    StartsAt: 0
+    Weight:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 1.9911377
+        outSlope: 1.9911377
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.50225747
+        value: 1.0000638
+        inSlope: 0.96530527
+        outSlope: 0.96530527
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.50331116
+        value: 1
+        inSlope: -6.7346144
+        outSlope: -6.7346144
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.57634693
+        value: 0.020685107
+        inSlope: -13.408702
+        outSlope: -13.408702
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  - Volume: {fileID: 202083054}
+    StartsAt: 1
+    Weight:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: -2.6245613
+        outSlope: -2.6245613
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.3816684
+        value: -0.0017120838
+        inSlope: -2.6245613
+        outSlope: -2.6245613
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -27758,3 +28063,6 @@ SceneRoots:
   - {fileID: 88327614}
   - {fileID: 1620320550}
   - {fileID: 2036311626}
+  - {fileID: 8836186590091658124}
+  - {fileID: 800689864}
+  - {fileID: 202083055}

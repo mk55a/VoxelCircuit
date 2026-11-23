@@ -32,15 +32,18 @@ namespace CylinderShooter.Combat
 
         void Update()
         {
-            if (_input.FireHeld) TryFire();
+            int direction = _input.FireDirection;
+            if (direction != 0) TryFire(direction);
         }
 
-        public bool TryFire()
+        /// <summary>Fires one shot to screen-left (negative) or screen-right (positive), whichever way the ship faces.</summary>
+        public bool TryFire(float direction)
         {
+            if (Mathf.Approximately(direction, 0f)) return false;
             if (_life != null && !_life.CanControl) return false;
             if (!_limiter.TryFire(Time.time, _tuning.ShotsPerSecond)) return false;
 
-            float dir = _aimSource.FacingSign;
+            float dir = Mathf.Sign(direction);
             var start = _aimSource.Position.Moved(-dir * _tuning.MuzzleOffset / _cylinderRadius, 0f);
             float inherited = Mathf.Max(0f, _aimSource.HorizontalVelocity * dir) * _tuning.InheritVelocity;
             var velocity = new Vector2(dir * (_tuning.BulletSpeed + inherited), 0f);

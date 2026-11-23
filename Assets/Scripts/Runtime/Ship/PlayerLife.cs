@@ -44,6 +44,7 @@ namespace CylinderShooter.Ship
 
         public void AddLives(int count) => _state.AddLives(count);
         public void RemoveLives(int count) => _state.RemoveLives(count);
+        public void GrantInvulnerability(float seconds) => _state.GrantInvulnerability(seconds);
         /// <summary>Destroys the ship with no known cause: effects burst evenly.</summary>
         public bool TryDestroy() => TryDestroy(new DestructionEvent(_ship.Position));
 

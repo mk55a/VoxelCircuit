@@ -66,6 +66,29 @@ namespace CylinderShooter.Core
             return true;
         }
 
+        /// <summary>
+        /// Makes a living ship untouchable for at least <paramref name="seconds"/> (e.g. while a shockwave builds up).
+        /// Never shortens existing invulnerability and does nothing while respawning.
+        /// </summary>
+        public void GrantInvulnerability(float seconds)
+        {
+            if (seconds < 0f || float.IsNaN(seconds) || float.IsInfinity(seconds))
+            {
+                throw new ArgumentOutOfRangeException(nameof(seconds));
+            }
+            if (Status == PlayerStatus.Respawning || seconds == 0f)
+            {
+                return;
+            }
+            if (Status == PlayerStatus.Invulnerable)
+            {
+                _remaining = Math.Max(_remaining, seconds);
+                return;
+            }
+            _remaining = seconds;
+            SetStatus(PlayerStatus.Invulnerable);
+        }
+
         public void Tick(float deltaTime)
         {
             if (deltaTime < 0f || float.IsNaN(deltaTime) || float.IsInfinity(deltaTime))

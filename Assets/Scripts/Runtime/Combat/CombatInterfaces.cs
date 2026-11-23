@@ -12,12 +12,14 @@ namespace CylinderShooter.Combat
 
     public interface IFireInput
     {
-        bool FireHeld { get; }
+        /// <summary>-1 fire screen-left, +1 fire screen-right, 0 not firing. Independent of where the ship faces.</summary>
+        int FireDirection { get; }
     }
 
     public interface IWeapon
     {
-        bool TryFire();
+        /// <param name="direction">Screen direction to fire in: negative = left, positive = right.</param>
+        bool TryFire(float direction);
     }
 
     public interface IBulletPool

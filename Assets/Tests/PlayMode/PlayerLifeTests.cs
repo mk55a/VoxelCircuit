@@ -14,7 +14,7 @@ namespace CylinderShooter.Tests
     {
         public Vector2 Move => Vector2.zero;
         public bool ConsumeBoost() => false;
-        public bool FireHeld => false;
+        public int FireDirection => 0;
     }
 
     public class PlayerLifeTests
@@ -228,7 +228,7 @@ namespace CylinderShooter.Tests
             SetField(cannon, "_life", _life);
             _cannonObject.SetActive(true);
             _life.TryDestroy();
-            Assert.IsFalse(cannon.TryFire());
+            Assert.IsFalse(cannon.TryFire(1f));
         }
 
         private GameObject CreateDrifter()
