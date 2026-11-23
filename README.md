@@ -82,6 +82,15 @@ A 10-minute survival mode, where a spawn director sends enemies in waves of risi
 
 Controls: WASD or arrow keys to move, Space to boost, J or left mouse to fire. Gamepad is supported.
 
+### Generating a city
+
+1. Outside Play mode, select `Stage1 > City > Plane` in `LookTest`, then choose **Cylinder Shooter > City > Add Generator To Selected Plane**.
+2. In the plane's **City Generator** component, add building prefabs from `Assets/Art/City/Prefabs`. Set the minimum and maximum building count, choose **Grid Streets** or **Noise Clusters**, and adjust spacing, clearance and layout settings. The cylinder config is assigned by the menu.
+3. Press **Generate City** and review the confirmation. It replaces the previously generated city **and every prefab instance directly under the plane's parent**, not just building prefabs. Other objects are left alone. Generation can be undone with Ctrl+Z.
+4. Move the plane up or down to move the generated city and tune the skyline. Save the scene when happy.
+
+The seed makes a layout repeatable; use **Randomize Seed** for a different one. **Clear Generated City** removes only the generated group. Buildings are placed within the arena radius, not across the whole plane. If a layout cannot fit, no objects are replaced; reduce the count or adjust spacing, margin or noise threshold. The plane must be horizontal, cover the city disk, and have positive, equal X/Z world scale.
+
 ---
 
 *Inspired by arcade arena shooters such as Resogun. Nothing is copied from it or any other game.*

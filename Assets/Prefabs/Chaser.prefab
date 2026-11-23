@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5227014962827612262}
   - component: {fileID: 362786494091661980}
   - component: {fileID: 843721905218721305}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Chaser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,9 +154,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: 57f9309e6c02f1247837a2fa93f8e958, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: bb273ac9ccb7be34891300d61ef4587e, type: 2}
     - target: {fileID: 919132149155446097, guid: 57f9309e6c02f1247837a2fa93f8e958, type: 3}
       propertyPath: m_Name
       value: Chaser
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 57f9309e6c02f1247837a2fa93f8e958, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 57f9309e6c02f1247837a2fa93f8e958, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

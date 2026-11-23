@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace CylinderShooter.Ship
 {
-    public sealed class ShipController : MonoBehaviour, ICameraTarget, IAimSource
+    public sealed class ShipController : MonoBehaviour, ICameraTarget, IAimSource, IThrusterSource
     {
         [SerializeField] private CylinderConfig _cylinder;
         [SerializeField] private ShipTuning _tuning;
@@ -32,6 +32,9 @@ namespace CylinderShooter.Ship
         public float FacingSign => _facing.Value >= 0f ? 1f : -1f;
         public float NormalizedVelocity => Mathf.Clamp(_motor.Velocity.x / _tuning.MaxSpeed, -1.5f, 1.5f);
         public ShipTuning Tuning => _tuning;
+        public float Speed => Mathf.Abs(_motor.Velocity.x);
+        public float CruiseSpeed => _tuning.MaxSpeed;
+        public float BoostSpeed => _tuning.MaxSpeed * _tuning.BoostSpeedMultiplier;
 
         CylinderPosition Interpolated
         {
