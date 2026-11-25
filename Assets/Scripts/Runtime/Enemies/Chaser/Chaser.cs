@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace CylinderShooter.Enemies
 {
-    public sealed class Chaser : MonoBehaviour, IDamageable, IContactHazard, IDestructible
+    public sealed class Chaser : MonoBehaviour, IDamageable, IContactHazard, IDestructible, IFormationMember
     {
         [Header("Configuration")]
         [SerializeField] private ChaserTuning _tuning;
@@ -23,7 +23,7 @@ namespace CylinderShooter.Enemies
         private ContactHazardRegistry _hazards;
         private FormationMotion _formation;
         private int _formationSlot;
-        private Action<Chaser> _onReturned;
+        private Action<IFormationMember> _onReturned;
         private CylinderPosition _spawnPosition;
         private float _spawnHeading;
         private bool _hasSpawn;
@@ -35,12 +35,13 @@ namespace CylinderShooter.Enemies
         public CylinderPosition PreviousContactPosition { get; private set; }
         public CylinderPosition ContactPosition => _position;
         public bool IsInFormation => _formation != null;
+        public FormationMotion Formation => _formation;
 
         /// <summary>Shot down or crashed into the player; not raised when cleared or returned to a pool.</summary>
         public event Action<DestructionEvent> Destroyed;
 
         public void PrepareSpawn(ShipController target, FormationMotion formation, int slot,
-            Action<Chaser> onReturned)
+            Action<IFormationMember> onReturned)
         {
             if (gameObject.activeSelf || target == null || formation == null || onReturned == null)
                 throw new InvalidOperationException("A pooled Chaser must be inactive and have a target, formation and owner.");

@@ -45,5 +45,16 @@ namespace CylinderShooter.Core
         }
 
         public static float ArcToAngle(float arcLength, float radius) => arcLength / radius;
+
+        /// <summary>
+        /// Distance between two points measured along the cylinder's surface (shortest way round, across the seam),
+        /// in metres. This is the distance the player sees on screen, so ranges such as a mine's trigger use it.
+        /// </summary>
+        public static float SurfaceDistance(CylinderPosition a, CylinderPosition b, float radius)
+        {
+            float arc = ShortestDelta(a.Angle, b.Angle) * radius;
+            float vertical = b.Height - a.Height;
+            return Mathf.Sqrt(arc * arc + vertical * vertical);
+        }
     }
 }

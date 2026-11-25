@@ -27,6 +27,7 @@ namespace CylinderShooter.Editor
         public const string CombatPrefabsFolder = PrefabsFolder + "/Combat";
         public const string ChaserPrefab = PrefabsFolder + "/Enemies/Chaser.prefab";
         public const string DrifterPrefab = PrefabsFolder + "/Enemies/Drifter.prefab";
+        public const string BomberPrefab = PrefabsFolder + "/Enemies/Bomber.prefab";
 
         public const string ArenaArtFolder = "Assets/Art/Arena";
         public const string EnvironmentArtFolder = "Assets/Art/Environment";

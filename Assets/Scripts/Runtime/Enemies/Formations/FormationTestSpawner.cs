@@ -16,6 +16,9 @@ namespace CylinderShooter.Formations
         [SerializeField] private FovBoostEffect _fovBoost;
         [SerializeField] private CylinderConfig _cylinder;
         [SerializeField] private Chaser _prefab;
+        [Tooltip("Optional second enemy for the same formation, spawned with B instead of F (e.g. the Bomber prefab). " +
+                 "Drag the prefab in; the right component is picked.")]
+        [SerializeField] private MonoBehaviour _alternatePrefab;
         [SerializeField] private MeshFilter _arena;
         [SerializeField] private FormationDefinition _formation;
         [SerializeField] private FormationEntrySide _entrySide = FormationEntrySide.Random;
@@ -26,16 +29,38 @@ namespace CylinderShooter.Formations
                  "arena). 0 = off: only off-screen points or points behind an opaque arena count as hidden.")]
         [SerializeField, Min(0f)] private float _hiddenBeyondDistance;
 
-        private readonly Stack<Chaser> _available = new Stack<Chaser>();
-        private readonly HashSet<Chaser> _active = new HashSet<Chaser>();
+        /// <summary>One pool per enemy prefab: its inactive instances and how big it looks.</summary>
+        private sealed class MemberPool
+        {
+            public MemberPool(IFormationMember prefab, float visualRadius)
+            {
+                Prefab = prefab;
+                VisualRadius = visualRadius;
+            }
+
+            public IFormationMember Prefab { get; }
+            public float VisualRadius { get; }
+            public Stack<IFormationMember> Available { get; } = new Stack<IFormationMember>();
+        }
+
+        private readonly HashSet<IFormationMember> _active = new HashSet<IFormationMember>();
+        private readonly Dictionary<IFormationMember, MemberPool> _home = new Dictionary<IFormationMember, MemberPool>();
         private readonly List<FormationMotion> _motions = new List<FormationMotion>();
+        private MemberPool _primaryPool;
+        private MemberPool _alternatePool;
         private Transform _inactiveRoot;
         private InputAction _spawnAction;
+        private InputAction _spawnAlternateAction;
         private InputAction _clearAction;
-        private float _visualRadius;
         private MeshCollider _occlusionProbe;
 
         public int ActiveCount => _active.Count;
+
+        private void OnValidate()
+        {
+            if (_alternatePrefab != null && !(_alternatePrefab is IFormationMember))
+                _alternatePrefab = _alternatePrefab.GetComponent<IFormationMember>() as MonoBehaviour;
+        }
 
         private void Awake()
         {
@@ -56,25 +81,38 @@ namespace CylinderShooter.Formations
             probe.transform.SetParent(transform, false);
             _occlusionProbe = probe.AddComponent<MeshCollider>();
             _occlusionProbe.enabled = false;
-            _visualRadius = CalculateVisualRadius(_prefab);
+
+            _primaryPool = new MemberPool(_prefab, CalculateVisualRadius(_prefab));
             for (int i = 0; i < Mathf.Min(_prewarm, _maxEnemies); i++)
-                _available.Push(CreateChaser());
+                _primaryPool.Available.Push(CreateMember(_primaryPool));
+
+            if (_alternatePrefab != null)
+            {
+                if (_alternatePrefab is IFormationMember alternate && _alternatePrefab.enabled && alternate.HasValidTuning)
+                    _alternatePool = new MemberPool(alternate, CalculateVisualRadius(_alternatePrefab));
+                else
+                    Debug.LogError("'Alternate Prefab' must be an enemy prefab that can fly in formations (e.g. Bomber) " +
+                                   "with valid tuning. B won't spawn anything until it is fixed.", this);
+            }
 
             _spawnAction = new InputAction("Spawn formation", InputActionType.Button, "<Keyboard>/f");
+            _spawnAlternateAction = new InputAction("Spawn alternate formation", InputActionType.Button, "<Keyboard>/b");
             _clearAction = new InputAction("Clear formations", InputActionType.Button, "<Keyboard>/r");
         }
 
         private void OnEnable()
         {
-            foreach (var chaser in _available)
-                if (chaser != null && chaser.gameObject.activeSelf) chaser.gameObject.SetActive(false);
+            DeactivatePooled(_primaryPool);
+            DeactivatePooled(_alternatePool);
             _spawnAction?.Enable();
+            _spawnAlternateAction?.Enable();
             _clearAction?.Enable();
         }
 
         private void OnDisable()
         {
             _spawnAction?.Disable();
+            _spawnAlternateAction?.Disable();
             _clearAction?.Disable();
             if (gameObject.activeInHierarchy) Clear();
         }
@@ -82,6 +120,7 @@ namespace CylinderShooter.Formations
         private void OnDestroy()
         {
             _spawnAction?.Dispose();
+            _spawnAlternateAction?.Dispose();
             _clearAction?.Dispose();
         }
 
@@ -93,10 +132,22 @@ namespace CylinderShooter.Formations
                 else _motions[i].Advance(Time.deltaTime);
             }
             if (_spawnAction.WasPressedThisFrame()) Spawn();
+            if (_spawnAlternateAction.WasPressedThisFrame()) SpawnAlternate();
             if (_clearAction.WasPressedThisFrame()) Clear();
         }
 
-        public bool Spawn()
+        /// <summary>Spawns the formation with the main prefab (the Chaser). Key F.</summary>
+        public bool Spawn() => Spawn(_primaryPool);
+
+        /// <summary>Spawns the formation with the alternate prefab (e.g. the Bomber). Key B.</summary>
+        public bool SpawnAlternate()
+        {
+            if (_alternatePool == null)
+                return Reject("Assign a valid 'Alternate Prefab' (e.g. the Bomber) to spawn it with B.");
+            return Spawn(_alternatePool);
+        }
+
+        private bool Spawn(MemberPool pool)
         {
             if (!enabled || _formation == null)
                 return Reject("Assign a formation definition to the test spawner.");
@@ -107,17 +158,17 @@ namespace CylinderShooter.Formations
 
             int side = _entrySide == FormationEntrySide.Random ? (Random.value < 0.5f ? -1 : 1)
                 : _entrySide == FormationEntrySide.Left ? -1 : 1;
-            if (!TryFindSpawn(side, out var motion))
+            if (!TryFindSpawn(pool, side, out var motion))
                 return Reject("Formation cannot fit off-screen or behind an opaque arena on the chosen side.");
 
             _motions.Add(motion);
             for (int i = 0; i < _formation.Count; i++)
             {
-                var chaser = _available.Count > 0 ? _available.Pop() : CreateChaser();
-                chaser.PrepareSpawn(_ship, motion, i, Return);
-                _active.Add(chaser);
-                chaser.transform.SetParent(transform, false);
-                chaser.gameObject.SetActive(true);
+                var member = pool.Available.Count > 0 ? pool.Available.Pop() : CreateMember(pool);
+                member.PrepareSpawn(_ship, motion, i, Return);
+                _active.Add(member);
+                member.gameObject.transform.SetParent(transform, false);
+                member.gameObject.SetActive(true);
             }
             return true;
         }
@@ -126,11 +177,11 @@ namespace CylinderShooter.Formations
         {
             while (_active.Count > 0)
             {
-                Chaser member = null;
+                IFormationMember member = null;
                 foreach (var active in _active) { member = active; break; }
-                if (member == null)
+                if (member == null || (member is Object unityObject && unityObject == null))
                 {
-                    Debug.LogError("A sandbox Chaser was destroyed outside its pool.", this);
+                    Debug.LogError("A sandbox enemy was destroyed outside its pool.", this);
                     _active.Clear();
                     break;
                 }
@@ -139,30 +190,38 @@ namespace CylinderShooter.Formations
             _motions.Clear();
         }
 
-        private Chaser CreateChaser()
+        private IFormationMember CreateMember(MemberPool pool)
         {
-            var instance = Instantiate(_prefab, _inactiveRoot);
+            var instance = (IFormationMember)Instantiate((MonoBehaviour)pool.Prefab, _inactiveRoot);
             instance.gameObject.SetActive(false);
+            _home.Add(instance, pool);
             return instance;
         }
 
-        private void Return(Chaser chaser)
+        private static void DeactivatePooled(MemberPool pool)
         {
-            if (!_active.Remove(chaser))
+            if (pool == null) return;
+            foreach (var member in pool.Available)
+                if (member != null && member.gameObject.activeSelf) member.gameObject.SetActive(false);
+        }
+
+        private void Return(IFormationMember member)
+        {
+            if (!_active.Remove(member) || !_home.TryGetValue(member, out var pool))
             {
-                Debug.LogError("A Chaser was returned to the formation pool more than once.", this);
+                Debug.LogError("An enemy was returned to the formation pool more than once.", this);
                 return;
             }
-            _available.Push(chaser);
+            pool.Available.Push(member);
             if (_active.Count == 0) _motions.Clear();
         }
 
-        private bool TryFindSpawn(int side, out FormationMotion result)
+        private bool TryFindSpawn(MemberPool pool, int side, out FormationMotion result)
         {
             float radius = _cylinder.Radius;
             Vector3 cameraOffset = _camera.transform.position;
             float cameraAngle = Mathf.Atan2(cameraOffset.x, cameraOffset.z);
-            float extent = Mathf.Max(_prefab.Radius, _visualRadius);
+            float extent = Mathf.Max(pool.Prefab.Radius, pool.VisualRadius);
             bool canOcclude = PrepareOcclusionProbe();
             float widestFov = _fovBoost == null ? _camera.fieldOfView
                 : Mathf.Max(_camera.fieldOfView, _fovBoost.MaximumFieldOfView);
@@ -245,7 +304,7 @@ namespace CylinderShooter.Formations
             return true;
         }
 
-        private static float CalculateVisualRadius(Chaser prefab)
+        private static float CalculateVisualRadius(Component prefab)
         {
             float radius = 0f;
             foreach (var renderer in prefab.GetComponentsInChildren<Renderer>(true))

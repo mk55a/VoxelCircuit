@@ -9,6 +9,9 @@ namespace CylinderShooter.Enemies
         [SerializeField, Min(0f)] private float _degreesPerSecond = 60f;
         [Tooltip("Random variation in speed for each spawn, in degrees per second.")]
         [SerializeField, Min(0f)] private float _speedVariation = 15f;
+        [Tooltip("Axis the model spins around, in the model's local space. (0, 0, 1) = around its nose, like a drill " +
+                 "(Chaser). (0, 1, 0) = around its vertical, like a slowly turning mine (Bomber).")]
+        [SerializeField] private Vector3 _axis = Vector3.forward;
 
         private Quaternion _baseRotation;
         private bool _initialized;
@@ -59,7 +62,8 @@ namespace CylinderShooter.Enemies
 
         private void ApplyRotation()
         {
-            _model.localRotation = _baseRotation * Quaternion.AngleAxis(_angle, Vector3.forward);
+            _model.localRotation = _baseRotation * Quaternion.AngleAxis(_angle,
+                _axis.sqrMagnitude > 0f ? _axis : Vector3.forward);
         }
     }
 }

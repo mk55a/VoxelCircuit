@@ -20550,6 +20550,7 @@ MonoBehaviour:
   _fovBoost: {fileID: 330585548}
   _cylinder: {fileID: 11400000, guid: 859b81947f6772a44a793ffbad4c7923, type: 2}
   _prefab: {fileID: 1004, guid: 0468af5f852a4e0188ce64fed67097b1, type: 3}
+  _alternatePrefab: {fileID: 2085646311973363827, guid: a0bc6a9e6d76cdb4ba1664ead25df708, type: 3}
   _arena: {fileID: 1528772540}
   _formation: {fileID: 11400000, guid: 4deebfb462592e846a5e0d0aad401fee, type: 2}
   _entrySide: 2

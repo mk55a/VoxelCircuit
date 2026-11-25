@@ -1,0 +1,204 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5609904255785585860
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2688546463149235649}
+  - component: {fileID: 2085646311973363827}
+  - component: {fileID: 1785478250289104718}
+  - component: {fileID: 3452518473255204852}
+  - component: {fileID: 8711220579850748371}
+  - component: {fileID: 9214891007199457427}
+  - component: {fileID: 3740334803136234520}
+  m_Layer: 6
+  m_Name: Bomber
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2688546463149235649
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5609904255785585860}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 721218596849241125}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2085646311973363827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5609904255785585860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc95d3df6e5bc01488d9b36cdf903112, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Runtime::CylinderShooter.Enemies.Bomber
+  _tuning: {fileID: 11400000, guid: 0331ce8dbcdc24e48a235cd2e3c89bfd, type: 2}
+  _target: {fileID: 0}
+  _startAngleDegrees: 0
+  _startHeight: 0
+--- !u!114 &1785478250289104718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5609904255785585860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e3664c575792ef4396483f0a3ae62a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Runtime::CylinderShooter.Effects.ShatterOnDestroyed
+  _voxelData: {fileID: 4900000, guid: 0017db38153dd434aa52beb0a61c2828, type: 3}
+  _model: {fileID: 721218596849241125}
+  _profile: {fileID: 11400000, guid: f56cfc1cd844abd47a2c44c2f6e11c61, type: 2}
+--- !u!114 &3452518473255204852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5609904255785585860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3e20ac8b515c27448a9adbfec0f6269, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Runtime::CylinderShooter.Effects.PulseOnDestroyed
+  _profile: {fileID: 11400000, guid: 5beee0af3254b51418ad11ba0db078a5, type: 2}
+  _model: {fileID: 721218596849241125}
+--- !u!114 &8711220579850748371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5609904255785585860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 929fc2e0d30fc8e4e8837e1915f88b98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Runtime::CylinderShooter.Effects.PulseOnDetonated
+  _profile: {fileID: 11400000, guid: 6a888d95d94783f4a9d7d69e4c267b4c, type: 2}
+--- !u!114 &9214891007199457427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5609904255785585860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a27d5488d9ee1f4e965637a37538bb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Runtime::CylinderShooter.Effects.FuseLamps
+  _fuseSource: {fileID: 2085646311973363827}
+  _renderer: {fileID: 1981840236557557923}
+  _profile: {fileID: 11400000, guid: 1847c96fed891c248ac22997ad87f2ad, type: 2}
+--- !u!114 &3740334803136234520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5609904255785585860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d2d91b51cdb46d6923c9700452e0eb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Runtime::CylinderShooter.Enemies.ChaserVisualSpin
+  _model: {fileID: 721218596849241125}
+  _degreesPerSecond: 40
+  _speedVariation: 15
+  _axis: {x: 0, y: 1, z: 0}
+--- !u!1001 &975294316126120910
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2688546463149235649}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 5cb97feed76d5f14dbb8f28197e0aa74, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5cb97feed76d5f14dbb8f28197e0aa74, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5cb97feed76d5f14dbb8f28197e0aa74, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5cb97feed76d5f14dbb8f28197e0aa74, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5cb97feed76d5f14dbb8f28197e0aa74, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5cb97feed76d5f14dbb8f28197e0aa74, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5cb97feed76d5f14dbb8f28197e0aa74, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5cb97feed76d5f14dbb8f28197e0aa74, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5cb97feed76d5f14dbb8f28197e0aa74, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5cb97feed76d5f14dbb8f28197e0aa74, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5cb97feed76d5f14dbb8f28197e0aa74, type: 3}
+      propertyPath: m_Name
+      value: Bomber
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5cb97feed76d5f14dbb8f28197e0aa74, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 5cb97feed76d5f14dbb8f28197e0aa74, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5cb97feed76d5f14dbb8f28197e0aa74, type: 3}
+--- !u!4 &721218596849241125 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5cb97feed76d5f14dbb8f28197e0aa74, type: 3}
+  m_PrefabInstance: {fileID: 975294316126120910}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1981840236557557923 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7635826562936255635, guid: 5cb97feed76d5f14dbb8f28197e0aa74, type: 3}
+  m_PrefabInstance: {fileID: 975294316126120910}
+  m_PrefabAsset: {fileID: 0}
