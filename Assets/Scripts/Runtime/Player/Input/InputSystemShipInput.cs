@@ -46,9 +46,9 @@ namespace CylinderShooter.Ship
             _move.AddCompositeBinding("2DVector")
                 .With("Up", "<Keyboard>/w").With("Down", "<Keyboard>/s")
                 .With("Left", "<Keyboard>/a").With("Right", "<Keyboard>/d");
+            // Left and right arrows fire (below), so only up and down arrows move.
             _move.AddCompositeBinding("2DVector")
-                .With("Up", "<Keyboard>/upArrow").With("Down", "<Keyboard>/downArrow")
-                .With("Left", "<Keyboard>/leftArrow").With("Right", "<Keyboard>/rightArrow");
+                .With("Up", "<Keyboard>/upArrow").With("Down", "<Keyboard>/downArrow");
             _move.AddBinding("<Gamepad>/leftStick");
 
             _boost = new InputAction("Boost", InputActionType.Button);
@@ -59,11 +59,13 @@ namespace CylinderShooter.Ship
             _fireLeft = new InputAction("Fire Left", InputActionType.Button);
             _fireLeft.AddBinding("<Mouse>/leftButton");
             _fireLeft.AddBinding("<Keyboard>/j");
+            _fireLeft.AddBinding("<Keyboard>/leftArrow");
             _fireLeft.AddBinding("<Gamepad>/leftTrigger");
 
             _fireRight = new InputAction("Fire Right", InputActionType.Button);
             _fireRight.AddBinding("<Mouse>/rightButton");
             _fireRight.AddBinding("<Keyboard>/l");
+            _fireRight.AddBinding("<Keyboard>/rightArrow");
             _fireRight.AddBinding("<Gamepad>/rightTrigger");
 
             _shockwave = new InputAction("Shockwave", InputActionType.Button);

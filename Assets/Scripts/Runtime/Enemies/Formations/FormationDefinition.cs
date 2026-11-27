@@ -31,6 +31,18 @@ namespace CylinderShooter.Formations
         public float WaveFrequency => _waveFrequency;
         public float WavePhaseDegrees => _wavePhaseDegrees;
 
+        /// <summary>Rows a grid needs for this many members (its columns stay fixed). 1 for the other shapes.</summary>
+        public int RowsFor(int count) =>
+            _shape == FormationShape.Grid ? System.Math.Max(1, (count + _columns - 1) / System.Math.Max(1, _columns)) : 1;
+
+        /// <summary>Half the formation's height for this many members, including the wave's swing.</summary>
+        public float HalfHeightFor(int count)
+        {
+            float height = _shape == FormationShape.VerticalLine ? (count - 1) * _verticalSpacing :
+                _shape == FormationShape.Grid ? (RowsFor(count) - 1) * _verticalSpacing : 0f;
+            return height * 0.5f + WaveAmplitude;
+        }
+
         public bool Validate(float minHeight, float maxHeight, int maxCount, out string reason)
         {
             long count = _shape == FormationShape.Grid ? (long)_columns * _rows : _count;

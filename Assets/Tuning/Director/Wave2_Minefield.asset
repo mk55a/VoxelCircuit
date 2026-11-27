@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 813a43f2991069c4899c0c119f7c8396, type: 3}
+  m_Name: Wave2_Minefield
+  m_EditorClassIdentifier: Game.Runtime::CylinderShooter.Levels.StandardWaveDefinition
+  _displayName: 
+  _stages:
+  - {fileID: 11400000, guid: bdfedda0a41d2fb48a88af8eb6f1a998, type: 2}
+  - {fileID: 11400000, guid: 5bd18d8b72694614e9d0625d349bdaee, type: 2}
+  - {fileID: 11400000, guid: 6678421df6718a94b93eb7dc1c81296d, type: 2}

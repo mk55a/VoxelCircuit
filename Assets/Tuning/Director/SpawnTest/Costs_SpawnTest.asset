@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff29a4333cfb21a4fb5e06b388886094, type: 3}
+  m_Name: Costs_SpawnTest
+  m_EditorClassIdentifier: Game.Runtime::CylinderShooter.Enemies.EnemyCostTable
+  _costs:
+  - _enemy: {fileID: 11400000, guid: b17076f0d8a250446b83ba5f21f16ba5, type: 2}
+    _cost: 1
+  - _enemy: {fileID: 11400000, guid: f7a980a3d65b1ad4bab8fa4c6754ec8c, type: 2}
+    _cost: 2

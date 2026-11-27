@@ -12,6 +12,8 @@ namespace CylinderShooter.Editor
         public const string TuningFolder = "Assets/Tuning";
         public const string PlayerTuningFolder = TuningFolder + "/Player";
         public const string FormationsFolder = TuningFolder + "/Formations";
+        public const string DirectorFolder = TuningFolder + "/Director";
+        public const string LevelDebuggerStyle = "Assets/Scripts/Editor/Levels/LevelDebugger.uss";
 
         public const string CylinderConfig = TuningFolder + "/World/CylinderConfig.asset";
         public const string ShipTuning = PlayerTuningFolder + "/ShipTuning.asset";

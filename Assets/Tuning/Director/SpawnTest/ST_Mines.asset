@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68ef564a9f7ff94ea4846d8af2ee964, type: 3}
+  m_Name: ST_Mines
+  m_EditorClassIdentifier: Game.Runtime::CylinderShooter.Levels.StageDefinition
+  _displayName: 
+  _endMode: 0
+  _duration: 30
+  _maxDuration: 30
+  _startingCredits: 8
+  _creditsPerSecond: 3
+  _creditCap: 24
+  _groupSize: 0.5
+  _patience: 6
+  _cooldown: 2
+  _maxAlive: 40
+  _enemies:
+  - _enemy: {fileID: 11400000, guid: b17076f0d8a250446b83ba5f21f16ba5, type: 2}
+    _enabled: 1
+    _weight: 1
+    _maxAlive: 20
+  - _enemy: {fileID: 11400000, guid: f7a980a3d65b1ad4bab8fa4c6754ec8c, type: 2}
+    _enabled: 1
+    _weight: 3
+    _maxAlive: 0
+  _sides: 0
+  _laneFocus: 0.6
+  _allowPincer: 0

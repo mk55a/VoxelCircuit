@@ -1,0 +1,59 @@
+.debugger {
+    padding: 8px;
+}
+
+.notice {
+    white-space: normal;
+    margin-bottom: 6px;
+}
+
+.hidden {
+    display: none;
+}
+
+.section-title {
+    -unity-font-style: bold;
+    margin-top: 10px;
+    margin-bottom: 2px;
+}
+
+.status {
+    white-space: normal;
+}
+
+.headline {
+    -unity-font-style: bold;
+    font-size: 14px;
+    white-space: normal;
+}
+
+.graph {
+    height: 90px;
+    margin-top: 6px;
+    background-color: rgb(32, 32, 38);
+    border-width: 1px;
+    border-color: rgb(70, 70, 80);
+}
+
+.row {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.row > Button {
+    flex-grow: 1;
+    min-width: 90px;
+}
+
+.jump-button {
+    -unity-text-align: middle-left;
+}
+
+.jump-button--current {
+    -unity-font-style: bold;
+    color: rgb(255, 220, 120);
+}
+
+.log {
+    white-space: normal;
+}

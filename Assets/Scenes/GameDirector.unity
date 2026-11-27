@@ -11464,6 +11464,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1278914595697968476, guid: 95e006130f2a8b44aa63692ad899169e, type: 3}
   m_PrefabInstance: {fileID: 328237531}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1044037592
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1044037594}
+  - component: {fileID: 1044037593}
+  m_Layer: 0
+  m_Name: Level Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1044037593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044037592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a92319c1d65033a4da0d7d839d31fec2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Runtime::CylinderShooter.Levels.LevelManager
+  _level: {fileID: 11400000, guid: 72d27d92006269e4a8b5ceb0025a601c, type: 2}
+  _startAutomatically: 1
+--- !u!4 &1044037594
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044037592}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!21 &1055893923
 Material:
   serializedVersion: 8
@@ -11846,6 +11892,54 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8bee209948e45b545a2d87c4dfc9ddd6, type: 3}
   m_PrefabInstance: {fileID: 1857272344}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1080967966
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1080967968}
+  - component: {fileID: 1080967967}
+  m_Layer: 0
+  m_Name: Enemy Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1080967967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1080967966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87e05f02d8300af42ae25d10f2da923b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Runtime::CylinderShooter.Enemies.EnemyPool
+  _inactiveRoot: {fileID: 1089972184}
+  _activeRoot: {fileID: 1731341916}
+--- !u!4 &1080967968
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1080967966}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1089972184}
+  - {fileID: 1731341916}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1081142138
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12062,6 +12156,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1945493274}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1089972183
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1089972184}
+  m_Layer: 0
+  m_Name: Inactive Enemies
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1089972184
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1089972183}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1080967968}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1095550085 stripped
 Transform:
@@ -18530,6 +18655,55 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1e21773a33099d48812d385129ae734, type: 3}
+--- !u!1 &1392071312
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1392071314}
+  - component: {fileID: 1392071313}
+  m_Layer: 0
+  m_Name: Enemy Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1392071313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392071312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a24e2b8a5dbac94c90a3df3939d19d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Runtime::CylinderShooter.Enemies.EnemySpawner
+  _ship: {fileID: 1702172657}
+  _camera: {fileID: 330585545}
+  _fovBoost: {fileID: 330585548}
+  _pool: {fileID: 1080967967}
+  _placement: {fileID: 11400000, guid: 42232c79b2d5aba4580b3e265fd168c2, type: 2}
+--- !u!4 &1392071314
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392071312}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1396779571
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20072,7 +20246,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1620320547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20550,6 +20724,7 @@ MonoBehaviour:
   _fovBoost: {fileID: 330585548}
   _cylinder: {fileID: 11400000, guid: 859b81947f6772a44a793ffbad4c7923, type: 2}
   _prefab: {fileID: 1004, guid: 0468af5f852a4e0188ce64fed67097b1, type: 3}
+  _alternatePrefab: {fileID: 0}
   _arena: {fileID: 1528772540}
   _formation: {fileID: 11400000, guid: 4deebfb462592e846a5e0d0aad401fee, type: 2}
   _entrySide: 2
@@ -20822,6 +20997,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0713bf2355c971d40b10a5b5873dd087, type: 3}
+--- !u!1 &1731341915
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1731341916}
+  m_Layer: 0
+  m_Name: Active Enemies
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1731341916
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731341915}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1080967968}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1736164357
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22305,6 +22511,9 @@ MonoBehaviour:
   _debris: {fileID: 1608009213}
   _pulses: {fileID: 88327613}
   _shockwave: {fileID: 8836186590091658125}
+  _levelManager: {fileID: 1044037593}
+  _enemyPool: {fileID: 1080967967}
+  _enemySpawner: {fileID: 1392071313}
 --- !u!4 &1945493274
 Transform:
   m_ObjectHideFlags: 0
@@ -28066,3 +28275,6 @@ SceneRoots:
   - {fileID: 8836186590091658124}
   - {fileID: 800689864}
   - {fileID: 202083055}
+  - {fileID: 1044037594}
+  - {fileID: 1080967968}
+  - {fileID: 1392071314}

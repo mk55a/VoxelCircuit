@@ -23,12 +23,19 @@ namespace CylinderShooter.Formations
         public int MembersRemaining { get; private set; }
 
         public FormationMotion(FormationDefinition definition, CylinderPosition center, float radius, int direction)
+            : this(definition, center, radius, direction, definition.Count)
+        {
+        }
+
+        /// <summary>A formation with its own member count (a grid keeps its columns and adds rows as needed).</summary>
+        public FormationMotion(FormationDefinition definition, CylinderPosition center, float radius, int direction,
+            int count)
         {
             _shape = definition.Shape;
-            _count = definition.Count;
+            _count = System.Math.Max(1, count);
             MembersRemaining = _count;
             _columns = definition.Columns;
-            _rows = definition.Rows;
+            _rows = definition.RowsFor(_count);
             _horizontalSpacing = definition.HorizontalSpacing;
             _verticalSpacing = definition.VerticalSpacing;
             _speed = definition.Speed;
@@ -46,6 +53,9 @@ namespace CylinderShooter.Formations
             _elapsed += deltaTime;
             _center = _center.Moved(-_direction * _speed * deltaTime / _radius, 0f);
         }
+
+        public CylinderPosition Center => _center;
+        public int Count => _count;
 
         public void SetCenter(CylinderPosition center)
         {

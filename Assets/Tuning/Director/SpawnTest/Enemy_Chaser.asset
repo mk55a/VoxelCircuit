@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23046268c11791e428c3b38aba1e8d95, type: 3}
+  m_Name: Enemy_Chaser
+  m_EditorClassIdentifier: Game.Runtime::CylinderShooter.Enemies.EnemyDefinition
+  _displayName: 
+  _prefab: {fileID: 1004, guid: 0468af5f852a4e0188ce64fed67097b1, type: 3}
+  _maxAlive: 0
+  _prewarm: 120
+  _formations:
+  - _formation: {fileID: 11400000, guid: 4deebfb462592e846a5e0d0aad401fee, type: 2}
+    _minCount: 6
+    _maxCount: 20
+    _weight: 2
+  - _formation: {fileID: 11400000, guid: 1aa52e60f0d074743b5c7baf77d9502c, type: 2}
+    _minCount: 5
+    _maxCount: 12
+    _weight: 1
+  - _formation: {fileID: 11400000, guid: 1d4b6560e6096fb49af75f599fced2d9, type: 2}
+    _minCount: 10
+    _maxCount: 20
+    _weight: 1
+  _entries: []
